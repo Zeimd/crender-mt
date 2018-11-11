@@ -1,0 +1,3068 @@
+Concept Engine version 0.2
+Change log
+Last updated 28/7/2015 By Jari Korkala
+
+*************************************************************************
+
+KNOWN BUGS:
+
+- Mipmap generation cannot handle source texture with a width or height
+  of 1
+
+*************************************************************************
+Changes in build 329 (28/7/2015):
+
+Pipeline:
+
+- Pixel shader tasks are assigned to screen areas more close to each 
+  other to reduce the amount of caching problems
+
+*************************************************************************
+Changes in build 328 (26/7/2015):
+
+Textures:
+
+- Attempted alternate version of address calculation in linear filter.
+  Was slower, but kept for later use
+
+*************************************************************************
+Changes in build 327 (26/7/2015):
+
+Textures:
+
+- SSE version of linear filter uses tiled textures, but not
+  optimized
+
+*************************************************************************
+Changes in build 326 (26/7/2015):
+
+Textures:
+
+- Optimized tiled texel address generation
+
+- Portable version of linear filter converted to tiled textures
+
+*************************************************************************
+Changes in build 325 (14/7/2015):
+
+- Dropped variables from vertex formats and shaders that aren't used
+  at this so that they won't affect benchmarks
+
+*************************************************************************
+Changes in build 324 (13/7/2015):
+
+Textures:
+
+- Converted SSE version of nearest filter to use tiled textures
+
+*************************************************************************
+Changes in build 323 (12/7/2015):
+
+Textures:
+
+- Changed texture storage to a tiled layout to reduce cache trashing
+  when scanning in y-direction
+
+- Portable version of nearest filter updated
+*************************************************************************
+Changes in build 322 (12/7/2015):
+
+Textures:
+
+- SSE version of nearest filter also skips byte4->float4->byte4
+  conversions when writing directly to render target
+
+*************************************************************************
+Changes in build 321 (12/7/2015):
+
+Pixel shader:
+
+- Removed a lot of pointer chasing
+
+- Writing texture directly to render target bypasses 
+  byte4->float4->byte4 conversion that would otherwise occur
+
+*************************************************************************
+Changes in build 320 (12/3/2015):
+
+Textures:
+
+- Further streamlining of the SSE version of linear filter
+
+- Mip maps with nearest filtering use IEEE floating point 
+  binary representation based trick to get mip map level 
+  instead of float log2()
+
+*************************************************************************
+Changes in build 319 (12/3/2015):
+
+Textures
+
+- Mipmap generation works correctly unless source width or height
+  is 1
+
+- Mip maps with nearest filtering
+
+*************************************************************************
+Changes in build 318 (12/3/2015):
+
+Textures:
+
+- Streamlined texel fetch code in SSE linear filter
+
+Demo program:
+
+- Decoupled camera controls from frame rate for a smoother
+  experience
+
+*************************************************************************
+Changes in build 317 (12/3/2015):
+
+Textures:
+
+- Eliminated out-of-bound reads from SSE linear filter
+
+Demo program:
+
+- Texture sampler can be switched with function keys
+
+*************************************************************************
+Changes in build 315 "Tock" (11/3/2015):
+
+Textures:
+
+- Streamlining and improvements on nearest and linear filtering
+
+- Reduced out-of-texture reads in linear filter
+
+TODO:
+
+- Eliminate out-of-texture reads
+
+- Put mipmaps back
+
+- Implement a faster version of samplers for those cases where the
+2x2 pixel quad maps to the same texel
+
+*************************************************************************
+Changes in build 314 "Tock" (10/3/2015):
+
+Textures:
+
+- Linear filtering is now in SSE intrinsics
+
+*************************************************************************
+Changes in build 313 "Tock" (9/3/2015):
+
+Textures:
+
+- Improved texel reading and output on nearest filtering
+
+- Other filtering modes disabled until SSE intrinsic versions
+  are ready
+
+*************************************************************************
+Changes in build 312 "Tock" (9/3/2015):
+
+Textures:
+
+- Common parts of the sampling code are in SSE intrinsics
+
+- Implemented nearest filter with SSE intrinsics
+
+*************************************************************************
+Changes in build 311 "Tick" (8/3/2015):
+
+Textures:
+
+- Fixed issue with mipmap generation
+
+- Added linear filtering and mipmap filtering modes
+
+TODO:
+
+- Fix edge blinking when using linear texture filter
+
+*************************************************************************
+Changes in build 310 "Tick" (8/3/2015):
+
+Textures:
+
+- Automatic mipmap generation works with the exception of smallest
+  sizes which are unusually dark
+
+*************************************************************************
+Changes in build 309 "Tick" (7/3/2015):
+
+Textures:
+
+- Load texture from BMP file
+
+TODO:
+
+- Add gamma correction
+
+*************************************************************************
+Changes in build 308 "Tick" (7/3/2015):
+
+String library:
+
+- Visual Studio 2013 defined char32_t as integer type, so
+  changed all references to it to Ceng::Char32 to ensure correct
+  behavior
+
+- Fixed FindLast() and FindLastOf() which scanned the wrong range
+
+*************************************************************************
+Changes in build 307 "Tick" (6/3/2015):
+
+Finally added texture mapping.
+
+TODO: Load a proper texture instead of the development placeholder.
+
+*************************************************************************
+Changes in build 306 "Tick" (6/3/2015):
+
+Texture 2d
+
+	- Pixel shader data paths are now ready
+
+	- Only actual texture sampler code missing
+
+*************************************************************************
+Changes in build 305 "Tick" (6/3/2015):
+
+Added texture 2d and shader resource view creation.
+
+*************************************************************************
+Changes in build 304 "Tick" (5/3/2015):
+
+Added API call interfaces and data structures for texture creation and
+use.
+
+TODO: Texture implementation for software renderer.
+
+*************************************************************************
+Changes in build 303 "Tick-tock" (4/3/2015):
+
+Pixel shader
+
+	- Hopefully replaced all remaining inline assembly with
+	  intrinsics
+
+Vertex shader
+
+	- Replaced inline assembly with intrinsics
+
+TODO:
+
+	- Clean up depth-stencil test and use intrinsics instead
+	  of inline assembly
+
+*************************************************************************
+Changes in build 302 "Tick" (4/3/2015):
+
+Buffer clear , buffer swap:
+
+	- Replaced inline assembly with intrinsics
+
+*************************************************************************
+Changes in build 301 "Tick" (4/3/2015):
+
+Replaced inline assembly with intrinsics in pixel shader and
+rasterizer coverage test.
+
+*************************************************************************
+Changes in build 300 "Tick" (4/3/2015):
+
+Fixed the bug that caused rendering to fail in release mode.
+
+*************************************************************************
+Changes in build 299 "Tick" (3/3/2015):
+
+Swap chain has basic functionality with software renderer.
+
+BUG: Draws nothing on release mode without debugging.
+
+*************************************************************************
+Changes in build 298 "Tick" (3/3/2015):
+
+Removed some obsolete enums and descriptor classes.
+
+TODO: Implement swap chain for software renderer.
+
+*************************************************************************
+Changes in build 297 "Tick" (3/3/2015):
+
+Fixed memory leaks when creating Direct3D 9 renderer.
+
+*************************************************************************
+Changes in build 296 "Tick" (3/3/2015):
+
+Added separate SwapChain class for multiple windows.
+
+Added test application for Direct3D 9 renderer.
+
+*************************************************************************
+Changes in build 295 "Tick" (2/3/2015):
+
+Separeted RenderDevice to two classes:
+
+RenderDevice: multithreadable resource creation and other methods
+
+RenderContext: all rendering methods
+
+*************************************************************************
+Changes in build 294 "Tick" (2/3/2015):
+
+Added texture,render target and depth-stencil format support checks.
+
+*************************************************************************
+Changes in build 293 "Tick" (1/3/2015):
+
+Added display adapter and display mode enumeration.
+
+TODO: Laptop can't find Nvidia card in automatic selection mode.
+      Always gets Intel HD graphics.
+
+*************************************************************************
+Changes in build 292 "Tick" (28/2/2015):
+
+Changed WinAPI character encoding to Utf-16.
+
+*************************************************************************
+Changes in build 291 "Tick" (27/2/2015):
+
+Project migrated to Visual Studio 2013 Update 4.
+
+*************************************************************************
+Changes in build 290 "Tick" (27/2/2015):
+
+Merged primitive assembly to input assembler so that an additional
+loop over primitives is not neccessary.
+
+Changed number of screen buckets to 4*threadCount, which gives the
+best performance. The problem remains that for most of the time threads
+don't have any work to do.
+
+*************************************************************************
+Changes in build 289 "Tick" (25/2/2015):
+
+Added array index operator to RingBuffer-class.
+
+RingBuffer.Size() works correctly.
+
+*************************************************************************
+Changes in build 288 "Tick" (25/2/2015):
+
+Two-way conditional waking of command processor thread and
+render threads works.
+
+Added fine control to number of render threads running at a time.
+
+Automatic selection of maximum render thread count. 
+
+*************************************************************************
+Changes in build 287 "Tick" (24/2/2015):
+
+Screen subdivision now works correctly.
+
+TODO: Could use more buckets on higher resolutions.
+
+*************************************************************************
+Changes in build 285 "Tick" (24/2/2015):
+
+Rasterizer, depth test and pixel shader are now multithreaded.
+Together they use up to 66% of processing power, so it is already
+a significant improvement.
+
+TODO: Reduce memory allocation spamming
+
+*************************************************************************
+Changes in build 284 "Tick" (23/2/2015):
+
+- Rasterizer is now task based and pipelined
+
+*************************************************************************
+Changes in build 283 "Tick" (22/2/2015):
+
+- Rasterizer no longer leaks memory when the output is empty
+
+- Removed faulty multithread work completion test
+
+*************************************************************************
+Changes in build 282 "Tick" (10/10/2014):
+
+- Refined framework for multithreaded pixel shaders
+
+TODO:
+
+- Need a way to tell when an api call has completely passed through
+  pixel shader 
+
+*************************************************************************
+Changes in build 281 "Tick" (9/10/2014):
+
+- Non-functional build
+
+- Added an array for std::atomic that is not copy constructible
+
+- Initial framework for multithreaded pipeline
+
+*************************************************************************
+Changes in build 280 "Tick" (9/10/2014):
+
+- Screen subdivision is recalculated when window size changes
+
+*************************************************************************
+Changes in build 279 "Tick" (8/10/2014):
+
+- Rasterizer tile size is now used when calculating screen
+  subdivision instead of buffer layout's tile size (could be smaller)
+
+*************************************************************************
+Changes in build 278 "Tick" (8/10/2014):
+
+- Triangle setup now divides rasterizer and pixel shader workload
+  into buckets by screen area
+
+*************************************************************************
+Changes in build 277 "Tick" (4/10/2014):
+
+- RingBuffer now uses atomic front and back indices so that one reader
+  and writer can work concurrently
+
+- Fixed object lifetime management bugs in RingBuffer
+
+- Added move semantics to RingBuffer and AlignedBuffer
+
+- Renderer forwards all draw calls to command queue which is
+  processed by a separate thread
+
+*************************************************************************
+Changes in build 276 "Tick" (30/9/2014):
+
+- Added class SlidingWindow, which is a queue where elements can be
+  added in random order, but will be extracted in desired order
+
+*************************************************************************
+Changes in build 275 "Tock" (17/9/2014):
+
+- Removed repeated calculations caused by accessing the same element
+  of a leaf vector
+
+*************************************************************************
+Changes in build 274 "Tick" (17/9/2014):
+
+- Changed Ceng::SharedPtr to std::shared_ptr for compatibility
+  and thread safety
+
+*************************************************************************
+Changes in build 273 "Tock" (16/9/2014):
+
+- Significantly reduced synchronization cost of
+  Graphics2D_RenderTask
+
+*************************************************************************
+Changes in build 272 "Tock" (16/9/2014):
+
+- Removed bottlenecks from Graphics2D_RenderTask
+
+	NOTE: Synchronization is the major bottleneck now
+
+*************************************************************************
+Changes in build 271 "Tick" (16/9/2014):
+
+- Graphics2D_D3D9 uses a thread to separate back buffer drawing
+  from render calls
+
+*************************************************************************
+Changes in build 270 "Tick" (15/9/2014):
+
+- Started to work towards a multithreaded version
+
+*************************************************************************
+Changes in build 269 "Tick" (15/9/2014):
+
+- Platform library is now a DLL so it can be used in the software
+  renderer to provide threads and synchronization
+
+*************************************************************************
+Changes in build 268 "Tick" (14/9/2014):
+
+- CPU_Info enumerates physical cores and logical cores separately
+
+	* Physical cores contain all logical cores that belong to it
+
+	* Physical core knows whether its logical cores share
+	  execution resources (hyperthreading)
+
+	* Logical core knows which physical core it belongs to
+
+*************************************************************************
+Changes in build 267 "Tick" (13/9/2014):
+
+- Windows are now created with independent event handling functions
+
+	NOTE: Used a machine code buffer to redirect a free function
+	      callback to a member function
+
+*************************************************************************
+Changes in build 266 "Tick" (12/9/2014):
+
+- Processor features are detected more specifically
+
+	Example: AVX support is separeted into CPU and OS categories
+
+*************************************************************************
+Changes in build 265 "Tick" (10/9/2014):
+
+- Direct3D is loaded dynamically when necessary
+
+- Renamed platform library to "ceng-win32" which produces
+  ceng-platform.lib
+
+*************************************************************************
+Changes in build 264 "Tick" (10/9/2014):
+
+- Removed class PlatformLayer
+
+- Entry-level platform objects such as windows, threads, etc.
+  can be instantiated directly
+
+*************************************************************************
+Changes in build 263 "Tick" (4/9/2014):
+
+- Added priority levels to threads
+
+- Added maximum wait time to mutex locking and wait functions
+
+*************************************************************************
+Changes in build 262 "Tick" (4/9/2014):
+
+- Added classed Thread and ThreadTask
+
+- Added class Mutex for synchronization
+
+*************************************************************************
+Changes in build 261 "Tick" (4/9/2014):
+
+- Rearranged header file locations
+
+- Reduced header dependencies
+
+*************************************************************************
+Changes in build 260 "Tock" (3/9/2014):
+
+- AlignedBuffer no longer reallocates when copying from a buffer of
+  same size
+
+BUGS:
+
+	- Clipping against right side of the screen causes a crash?
+
+
+*************************************************************************
+Changes in build 259 "Tick" (3/9/2014):
+
+TODO:
+
+	- Write memory pools because LeafVector doesn't provide
+	  fast enough allocation
+
+NOTES:
+
+	- LeafVector is 10 times faster than allocating maximum
+	  possible buffer for rasterizer output.
+
+Class LeafVector
+
+	- A vector-style container which doesn't have to copy its contents
+	  when resizing
+
+BUGS:
+
+	- Clipping against right side of the screen causes a crash
+
+*************************************************************************
+Changes in build 258 "Tick" (3/9/2014):
+
+TODO:
+
+	- Leafed vector for rasterizer output buffer because
+	  current allocation rate slows debuggin to a crawl
+
+BUGS:
+
+	- Clipping against right side of the screen causes a crash
+
+CLIPPER:
+
+	- Fixed a bug in output primitive generation (number of
+	  triangles was calculated incorrectly)
+
+	- Now clips against (w > epsilon) instead of (w > 0)
+
+PIPELINE:
+
+	- Primitives are no longer spilled over to next draw call
+
+*************************************************************************
+Changes in build 257 "Tick" (3/9/2014):
+
+PIPELINE:
+
+	- Completely converted into batch processing
+
+TODO:
+
+	- Draw call splitting doesn't work correctly (spills over
+	  to next draw call)
+
+*************************************************************************
+Changes in build 256 "Tick" (2/9/2014):
+
+PIPELINE:
+
+	- Now batch based up to rasterizer
+
+*************************************************************************
+Changes in build 255 "Tick" (1/9/2014):
+
+PIPELINE:
+
+	- Now batch based and with state vector up to triangle
+	  setup
+
+*************************************************************************
+Changes in build 254 "Tick" (31/8/2014):
+
+PIPELINE:
+
+	- Now batch based and with state vector up to clipper
+
+*************************************************************************
+Changes in build 253 "Tick" (25/8/2014):
+
+Project:
+
+	- Reduced header dependencies
+
+Class RingBuffer:
+
+	- Now destroys contained objects correctly
+
+*************************************************************************
+Changes in build 252 "Tick" (22/8/2014):
+
+DATATYPES:
+
+	- Ring buffer now calls destructor on objects when deleted
+
+*************************************************************************
+Changes in build 251 "Tick" (21/8/2014):
+
+DATATYPES:
+
+	- Bug fixes in RingBuffer and SharedPtr classes
+
+	- RingBuffer now default-constructs objects
+
+DRAW CALLS:
+
+	- Triangle fans are split correctly into multiple batches
+
+*************************************************************************
+Changes in build 250 "Tick" (19/8/2014):
+
+DATATYPES:
+
+	- Added RingBuffer class template. WORK IN PROGRESS
+
+*************************************************************************
+Changes in build 249 "Tick" (1/6/2014):
+
+ASSEMBLER:
+
+	- Removed header dependencies
+
+*************************************************************************
+Changes in build 248 "Tick" (26/5/2014):
+
+ASSEMBLER:
+
+	- Removed unnecessary header dependencies
+
+STRINGS:
+
+	- Moved all template member function declarations out of class
+	  declaration
+
+*************************************************************************
+Changes in build 247 "Tick" (18/5/2014):
+
+ASSEMBLER:
+
+	- Parser can now work full instruction lines
+
+TODO:
+
+	- Properly parse int*register. Now only reg*int works.
+
+*************************************************************************
+Changes in build 246 "Tick" (12/5/2014):
+
+ASSEMBLER:
+
+	- Can parse memory operand [base+index*scale+-offset]
+	  with operands in any order
+
+TODO:
+
+	- Properly parse int*register  
+
+STRINGS:
+
+	- Fixed a bug where FindFirst(string&) returned wrong
+	  value if the test string was not found
+
+*************************************************************************
+Changes in build 245 "Tick" (10/5/2014):
+
+ASSEMBLER:
+
+	- Parser is starting to take a generic shape
+
+*************************************************************************
+Changes in build 244 "Tick" (4/5/2014):
+
+ASSEMBLER:
+
+	- Now parses parenthesis which only contain literals
+
+*************************************************************************
+Changes in build 243 "Tick" (2/5/2014):
+
+ASSEMBLER:
+
+	- Can parse simple expressions that contain
+	  operators +,-,/,*
+
+*************************************************************************
+Changes in build 242 "Tick" (29/4/2014):
+
+ASSEMBLER:
+
+	- Rewrote number literal recognition. Now works on any
+	  base, but no base suffixes
+
+	- Integers are constructed as 64-bit unsigned values
+
+	- Floats are constructed as 64-bit floating point
+
+STRINGS:
+
+	- Added search for a substring
+
+*************************************************************************
+Changes in build 241 "Tick" (21/4/2014):
+
+ASSEMBLER:
+
+	- Parser recognizes integer and float32 literal, but only
+	  base 10 supported	  
+
+*************************************************************************
+Changes in build 240 "Tick" (20/3/2014):
+
+STRING LIBRARY:
+
+	- Has almost everything required to write a parser for
+	  the assembler
+
+*************************************************************************
+Changes in build 239 "Tick" (17/3/2014):
+
+ASSEMBLER:
+
+	- Can produce embedded x86-32 applications
+
+STRING LIBRARY:
+
+	- Provides UTF-8 , UTF-16 and UTF-32 strings
+
+*************************************************************************
+Changes in build 238 "Tick" (6/11/2013):
+
+RASTERIZER:
+
+- Changed viewport from (0,0)->(width,height) to 
+  (-width/2,-height/2)->(width/2,height/2)
+	=> Allows larger resolution and wider guard bands for
+	   clipper
+
+- Maximum resolution is any combination for which
+  width*height < 4096*2048
+
+*************************************************************************
+Changes in build 237 "Tick" (3/11/2013):
+
+RASTERIZER:
+
+- Moved integer screen space coordinates to top-left corner of a
+  pixel
+	=> Conforms to OpenGL and Direct3D 10 rasterization rules
+
+- Scans full bounding box of a triangle even when viewport width and
+  height are odd
+
+CLIPPER:
+
+- Fixed a bug when clipping against w=0
+
+*************************************************************************
+Changes in build 236 "Tick" (1/11/2013):
+
+RASTERIZER:
+
+- Fixed resolution scaling
+	=> Rightmost column of pixels is filled correctly
+
+- 2d clipping by viewport size
+	OLD: Clipped by render target size, which could be larger
+
+CLIPPER:
+
+- Clips only against those planes it has to
+
+- Reduced the number of full copies of vertex data per plane
+
+- Now uses per-frame viewport rectangle and a larger guard band rectangle 
+  to select clipping planes
+	=> Clipping avoided in most cases
+
+*************************************************************************
+Changes in build 235 "Tick" (28/10/2013):
+
+- Fixed fill convention bug in rasterizer
+
+- Rasterizer now supports 8 bits of sub-pixel precision
+
+*************************************************************************
+Changes in build 234 "Tick" (27/10/2013):
+
+- Fixed a bug in SwapBuffers() where 2x2 pixel quads were all filled
+  with the color of top-left pixel
+
+- Minor rasterizer changes
+
+- Work on shader compiler started
+
+*************************************************************************
+Changes in build 233 "Tick" (5/10/2013):
+
+- New string class that has the potential to support different 
+  encodings
+
+*************************************************************************
+Changes in build 229 "Tick-Tock" (28/5/2013):
+
+Tick:
+
+	- It is now possible to use Direct3D 10 as display device
+
+Tock:
+
+	- Direct3D 10 device has better performance with dedicated
+	  GPUs
+
+*************************************************************************
+Changes in build 229 "Tock" (25/5/2013):
+
+Buffer swap:
+
+	- Moved framebuffer texture to GPU memory
+
+	- Added texture re-create for ALT-TAB situations if
+	  Direct3D renderer object is lost
+
+*************************************************************************
+Changes in build 228 "Tock" (24/5/2013):
+
+Buffer swap:
+
+	- Removed transfer of unmodified portions of
+	  the framebuffer texture to GPU
+
+*************************************************************************
+Changes in build 228 "Tick" (23/5/2013):
+
+Platform:
+
+	- Added plain message box to inform user of fatal errors
+
+engine-v2:
+
+	- Program aborts if processor doesn't support SSE2
+
+Pixel shader:
+
+	- Tested fully inlined version of current shader program.
+	  Excellent results => proceed with runtime code generation	  
+
+*************************************************************************
+Changes in build 227 "Tick-Tock" (22/5/2013):
+
+Quad generation:
+
+	- Rasterizer only outputs quad position and coverage data
+
+Pixel shader:
+
+	- Generates quad varyings to a local buffer to further optimize
+	  caching
+
+	- Marginally reduced abstraction cost due to fixed quad buffer
+	  location
+
+*************************************************************************
+Changes in build 226 "Tick" (22/5/2013):
+
+Pixel shader:
+
+	- Quads now provide triangle data so that pixel shader
+	  can be decoupled from rasterizing process
+
+*************************************************************************
+Changes in build 225 "Tick" (21/5/2013):
+
+Rasterizer:
+
+	- Quad chains are also generated for partially covered tiles
+
+	- Chains are connected to an earlier active chain if possible
+
+*************************************************************************
+Changes in build 224 "Tick" (19/5/2013):
+
+Shader callbacks:
+
+	- Removed obsolete code
+
+	- All input & output registers use specialized callbacks
+
+		(example: vertex shader input reads with MOVUPS
+	                  to avoid alignment issues)
+
+Shaders:
+
+	- Datatype FLOAT works
+
+*************************************************************************
+Changes in build 223 "Tock" (18/5/2013):
+
+Buffer swap:
+
+	- SSE version of vertical->horizontal conversion
+
+Buffer clear:
+
+	- Only clears the visible portion of the frame buffer
+
+*************************************************************************
+Changes in build 222 "Tock" (17/5/2013):
+
+Buffer swap:
+
+	- Direct3d now renders a "full-screen" quad the size of
+	  application window instead of the entire desktop
+
+*************************************************************************
+Changes in build 221 "Tick" (17/5/2013):
+
+Shader link:
+
+	- Manages vertex shader and pixel shader configuration
+
+	- Allocates intermediate buffers for the pipeline
+
+Fragment format:
+
+	- Only contains variables that are output by vertex shader
+	  AND then used by pixel shader
+
+Quad format:
+
+	- Now converts vertex shader fragments into a proto-quad
+	  for triangles
+
+	- Calculates fragment variable steps for quad generation
+	  and per-pixel stepping for pixel shader
+
+	- Automatically skips Vertex Shader's POSITION-semantic
+
+*************************************************************************
+Changes in build 220 "Tick" (8/5/2013):
+
+Common:
+
+	- Refactored vertex format code
+
+Pixel shader:
+
+	- Improved render target abstraction
+
+*************************************************************************
+Changes in build 219 "Tick" (7/5/2013):
+
+Shaders:
+
+	- Moved semantic and datatype enumerations to separate files
+
+	- Streamlined pixel shader abstraction
+
+*************************************************************************
+Changes in build 218 "Tick" (7/5/2013):
+
+Rasterizer, Pixel shader:
+
+	- Grouped fragment variables and steppings with
+	  CR_FloatFragment and CR_FloatPixelStep
+
+*************************************************************************
+Changes in build 217 "Tick" (7/5/2013):
+
+Pixel shader:
+
+	- Changed to vertical data layout
+
+*************************************************************************
+Changes in build 216 "Tock" (29/4/2013):
+
+AKA "Miracle Build" due to significant frame rate improvements
+
+Generic:
+
+	- Eliminated some bottlenecks
+
+*************************************************************************
+Changes in build 215 "Tock" (28/4/2013):
+
+Pixel shader:
+
+	- Eliminated latency from perspective correction divide
+
+*************************************************************************
+Changes in build 214 "Tock" (28/4/2013):
+
+Pixel shader:
+
+	- Shader processes four pixels in parallel
+
+*************************************************************************
+Changes in build 213 "Tock" (28/4/2013):
+
+Pixel shader:
+
+	- Class Shader::Float4, that avoids creation of temporary
+	  copies is used for local variables
+
+*************************************************************************
+Changes in build 212 "Tock" (28/4/2013):
+
+Pixel shader:
+
+	- Removed branches from pixel stepping code
+
+	- Perspective correction is done automatically when an
+	  input register is read
+
+*************************************************************************
+Changes in build 211 "Tick" (27/4/2013):
+
+Rasterizer:
+
+	- Horizontal quad chains can now be as long as triangle allows
+
+*************************************************************************
+Changes in build 210 "Tick" (27/4/2013):
+
+Render targets:
+
+	- Scanlined, 2x2, and 8-2 tiling layouts fully supported
+
+*************************************************************************
+Changes in build 209 "Tick" (26/4/2013):
+
+Quad generation:
+
+	- Reintroduced quad chains with reduced overhead
+		=> Improved caching
+
+*************************************************************************
+Changes in build 208 "Tick" (23/4/2013):
+
+Render targets:
+
+	- ClearTarget() moved to CR_NewTargetData to isolate 
+	  implementation specific code
+
+	- Finally got rid of old render target data struct
+
+*************************************************************************
+Changes in build 207 "Tick" (23/4/2013):
+
+Framebuffer swap:
+
+	- Moved buffer copy to CR_NewTargetData to isolate
+	  implementation specific code
+
+*************************************************************************
+Changes in build 206 "Tick" (20/4/2013):
+
+Cleaned CR_Rasterizer:
+
+- Pointers to fragment data are provided by CR_TriangleData instead
+  of class variables
+
+- Moved quad generation to CR_QuadGenerator
+
+- Moved depth test to CR_NewTargetData
+
+- Moved render target address calculation to CR_NewTargetData
+
+*************************************************************************
+Changes in build 205 "Tick" (16/4/2013):
+
+Rearranged project file folders.
+
+*************************************************************************
+Changes in build 204 "Tick" (16/4/2013):
+
+Refactored most of crender-code.
+
+*************************************************************************
+Changes in build 203 "Tick" (15/4/2013):
+
+Refactored code by moving a significant portion of enumerations,
+structs and interfaces into separate files.
+
+TODO:
+	- Fix depth-stencil test
+
+	- Refactor concept renderer files
+
+*************************************************************************
+Changes in build 202 (9/4/2013):
+
+Depth-stencil test:
+
+	- SSE version almost finished
+
+		TODO: Stencil write masking & saturation accordingly
+
+*************************************************************************
+Changes in build 201 (7/4/2013):
+
+Rasterizer:
+
+	- Removed most of the redundant copying of fragment variables
+
+*************************************************************************
+Changes in build 200 (13/2/2013):
+
+Renderer:
+
+	- ShowFrame() now works on display resolutions in which
+	  width or height isn't divisible by 8
+
+		TODO: SSE version
+
+*************************************************************************
+Changes in build 199 (22/11/2012):
+
+Buffer clear:
+
+	- Fill vector is generated correctly for all multi-channel
+	  depth-stencil buffers
+
+*************************************************************************
+Changes in build 198 (22/11/2012):
+
+Buffer clear:
+
+	- Depth-stencil buffer clear now uses callbacks when
+	  working on blocks of depth or stencil data
+
+*************************************************************************
+Changes in build 197 (22/11/2012):
+
+Depth buffer:
+
+	- Absence of depth buffer or stencil channel is treated
+	  correctly
+
+*************************************************************************
+Changes in build 196 (21/11/2012):
+
+Rasterizer:
+
+	- Supports all depth and stencil value tests
+
+	- Stencil actions present but all aren't tested
+
+*************************************************************************
+Changes in build 195 (20/11/2012):
+
+Rasterizer:
+
+	- Introduced a more generic form of depth-stencil test
+
+		* Controlled with API-level DepthStencilState
+
+*************************************************************************
+Changes in build 194 (20/11/2012):
+
+Buffer allocator:
+
+	- Allocates correctly for buffers with multiple channels
+	  (depth-stencil)
+
+Rasterizer:
+
+	- Reads correct channel data from depth buffer
+
+*************************************************************************
+Changes in build 193 (4/11/2012):
+
+Rasterizer:
+
+	- Supports frontface,backface, and no surface culling modes
+
+	- Supports clockwise vertex order for front-facing surfaces
+
+*************************************************************************
+Changes in build 192 (2/11/2012):
+
+Renderer:
+
+	- Added API-level support for depth-stencil test config
+	  and rasterizer state config
+
+	- Early depth-stencil test for tiles moved to a callback
+
+*************************************************************************
+Changes in build 191 (30/10/2012):
+
+Rasterizer:
+
+	- Tile coverage test moved to callback function
+
+	- Variables are interpolated to tile top-left corner
+	  only if the tile has visible pixels
+
+*************************************************************************
+Changes in build 190 (29/10/2012):
+
+Concept renderer:
+
+	- Restored SSE callbacks
+
+*************************************************************************
+Changes in build 189 (28/10/2012):
+
+Data types:
+
+	- Slightly improved type conversions from Ceng::BOOL
+
+Rendering:
+
+	- Added support structure for depth-stencil test setup
+
+*************************************************************************
+Changes in build 188 (27/10/2012):
+
+Concept renderer:
+
+	- New buffer allocator works for current test configuration
+
+*************************************************************************
+Changes in build 187 (21/10/2012):
+
+Concept renderer:
+
+	- Only the visible part of the framebuffer is copied in
+	  windowed mode
+
+	- Fixed a bug that caused window resizing to behave incorrectly
+	  in windowed mode
+
+*************************************************************************
+Changes in build 186 (16/10/2012):
+
+Data types:
+
+	- Added Abstract<maxBytes> template for those situations
+	  in which the exact data type varies
+
+*************************************************************************
+Changes in build 185 (16/10/2012):
+
+Interfaces:
+
+	- Moved ConceptOut-class to Graphics2D to increase
+	  reusable code
+
+	- More headers indented properly after the namespace addition
+
+*************************************************************************
+Changes in build 184 (16/10/2012):
+
+Interfaces:
+
+	- Allocation and deallocation of objects is now done in 
+	  library code
+
+*************************************************************************
+Changes in build 183 (16/10/2012):
+
+Entire project:
+
+	- Rearrangement of include and source files complete
+
+*************************************************************************
+Changes in build 182 (15/10/2012):
+
+Entire project:
+
+	- Since a namespace is used, basic datatype definitions
+	  lost underscore "_" prefix
+
+	- Started to move headers to a centralized location so
+	  that test app and library projects access the same files
+
+
+*************************************************************************
+Changes in build 181 (15/10/2012):
+
+Entire project:
+
+	- Started to use namespace "Ceng"
+
+	- Still have to remove CE_ -prefix from classnames
+
+*************************************************************************
+Changes in build 180 (12/10/2012):
+
+Concept Renderer:
+
+	- Full screen mode works
+
+	- Application paused when not on foreground (ALT-TAB)
+
+*************************************************************************
+Changes in build 179 (11/10/2012):
+
+Platform layer:
+
+	- Most of the base interfaces are now in their own headers
+
+Concept Renderer:
+
+	- Correctly syncs window size
+
+	- Displays scene
+
+	- TODO
+		* Buffer clear doesn't clear the correct area for
+		  all window sizes	
+
+*************************************************************************
+Changes in build 178 (11/10/2012):
+
+Platform layer:
+
+	- More clean
+
+	- Configuration chain works up to concept renderer
+
+TODO:
+
+	- Add keyboard configuration
+
+*************************************************************************
+Changes in build 177 (10/10/2012):
+
+Platform layer:
+
+	- Renderer core object creation
+
+Renderer core:
+
+	- Render device creation
+
+Concept renderer:
+
+	- Chain of device creation extended to concept renderer
+
+*************************************************************************
+Changes in build 176 (9/10/2012):
+
+Platform layer:
+
+	- Window resizing can be checked
+
+Renderer:
+
+	- PlatformRenderer class deals with initialization
+
+	- Remaining methods moved to RenderDevice class
+
+*************************************************************************
+Changes in build 175 (9/10/2012):
+
+Platform layer:
+
+	- Window functionality moved to PlatformWindow class
+
+NOTE: 
+
+Most of the program is now unusable until platform layer update
+is complete
+
+*************************************************************************
+Changes in build 174 (8/10/2012):
+
+Platform layer:
+
+	- Started an overhaul which allows all assembly-requiring
+	  routines to be moved into renderer-object
+
+	- CPU_Info class abstracts CPU feature queries somewhat
+
+		* CPU family specific feature IDs must be still used
+
+	- Intent to add support for multiple windows
+
+*************************************************************************
+Changes in build 173 (7/10/2012):
+
+Buffers:
+
+	- Added depth formats and renumbered all buffer formats (stupid)
+
+	- Intent to remove separate stencil buffer definitions
+
+*************************************************************************
+Changes in build 172 (7/10/2012):
+
+Rasterizer:
+
+	- Removed most alternate prototypes for clarity
+
+		* Continue work on optimization after rasterizer
+		  supports all features
+
+*************************************************************************
+Changes in build 171 (7/10/2012):
+
+Rasterizer:
+
+	- Depth test works correctly
+
+	- Faster render target address calculations
+
+		* Now assumes that we are always calculating either
+		  top-left corner of a tile or a quad
+
+*************************************************************************
+Changes in build 170 (30/9/2012):
+
+Rasterizer:
+
+	- Depth test is now done with a callback to a function
+	  hard-coded for specific format and test pairing.
+
+		NOTE: Allows easy overloading with 
+		      assembly-optimized versions
+		    
+
+*************************************************************************
+Changes in build 169 (1/7/2012):
+
+Rasterizer:
+
+	- Added early depth test to rasterizer(single,type 0).
+
+		NOTES: either float32 or pseudo-depth buffer has
+		       poor precision, but clipping against depth
+		       buffer produces jagged edges
+
+*************************************************************************
+Changes in build 168 (28/6/2012):
+
+Renderer:
+
+	- Moved color target clear from CE_RenderTarget interface to
+	  CE_Renderer - interface in order to minimize classes that
+	  require assembly callbacks
+
+	- Added a dummy ClearDepthStencil() method
+
+*************************************************************************
+Changes in build 167 (27/6/2012):
+
+Renderer:
+
+	- Setting a render target to NULL no longer causes a crash.
+	  (Fixed by clearing unused internal render target buffer)
+
+*************************************************************************
+Changes in build 166 (26/6/2012):
+
+Pixel shader:
+
+	- Writes to an undefined render target no longer crash the
+	  program. (target registers default to a null-write format)
+
+*************************************************************************
+Changes in build 165 (25/6/2012):
+
+Renderer:
+
+	- Now maintains handles to render targets so that they
+	  can't be released when in use
+
+	- Simplified SetRenderTarget() somewhat
+
+*************************************************************************
+Changes in build 164 (25/6/2012):
+
+Shared pointer:
+
+	- Added safeguards against evaluating a NULL reference variable
+
+	- Added exception signaling to reference variable allocation
+
+*************************************************************************
+Changes in build 163 (21/6/2012):
+
+Render targets + textures:
+
+	- Actual buffer is linked to SharedPtr objects, which
+	  delete the buffer only after it is no longer needed
+
+*************************************************************************
+Changes in build 162 (21/6/2012):
+
+Render targets:
+
+	- Added a crude implementation of reference counting
+
+	- Render target interface is updated so that clear() 
+	  works on correct area
+
+*************************************************************************
+Changes in build 161 (19/6/2012):
+
+Renderer:
+
+	- Direct3d 9 output now uses a single screen-sized texture
+	  if possible, which is faster
+
+	- Direct3d 9 now produces correct multi-texture output
+	  in square texture mode
+
+
+*************************************************************************
+Changes in build 160 (17/6/2012):
+
+Render target:
+
+	- Frame buffer copying is done with SSE.
+
+Rasterizer:
+
+	- Converted type 1 (single) to current render target layout,
+	  default test gives 96+ FPS, compared to ~85 from before
+
+*************************************************************************
+Changes in build 159 (17/6/2012):
+
+Render target:
+
+	- Fixed slowdown issues in Clear()-method
+
+*************************************************************************
+Changes in build 158 (17/6/2012):
+
+Render target:
+
+	- Changed to a 8x8 tiled layout, with each tile further divided
+	  into 2x2 tiles
+
+	- Fixed CR_RenderTarget -class' inheritance
+
+*************************************************************************
+Changes in build 157 (14/6/2012):
+
+Rasterizer:
+
+	- Changed naming of different rasterizer types
+
+	- Added descriptions for rasterizer types
+
+*************************************************************************
+Changes in build 156 (3/6/2012):
+
+Rasterizer:
+
+	- Work continues on finding the optimal way to construct
+	  quads for the pixel shader
+
+	- At this time type 2 is fastest
+
+Pixel shader:
+
+	- Reduced abstraction workload further
+
+*************************************************************************
+Changes in build 155 (3/6/2012):
+
+Rasterizer:
+
+	- Moved render target address generation back to the rasterizer
+	  in order to take advantage of extra information
+
+Pixel Shader:
+
+	- Abstraction part is now faster
+
+*************************************************************************
+Changes in build 154 (2/6/2012):
+
+Rasterizer:
+
+	- Added type 3 rasterizer, which delays quad generation
+	  until the entire triangle has been scanned for coverage
+
+*************************************************************************
+Changes in build 153 (2/6/2012):
+
+Rasterizer / Pixel shader:
+
+	- Implemented horizontal quad chains
+	
+	- Moved render target address calculations to pixel shader
+
+*************************************************************************
+Changes in build 152 (2/6/2012):
+
+Rasterizer:
+
+	- Moved remaining triangle specific variables to triangle
+	  buffer. They were previously stored in the rasterizer class.
+
+	- Reduced size of triangle header
+
+Pixel shader:
+
+	- Introduced framework for quad chains, which can hold up
+	  to 4 horizontally connected quads
+
+*************************************************************************
+Changes in build 151 (30/5/2012):
+
+Rasterizer:
+
+	- Writing hotspots of types 1 and 2 in SSE code shows that
+	  type 2 is slightly faster.
+
+*************************************************************************
+Changes in build 150 (30/5/2012):
+
+Rasterizer:
+
+	- Hotspots of type 2 rasterizer are now in hybrid C/x86 assembly
+
+*************************************************************************
+Changes in build 149 (30/5/2012):
+
+Rasterizer:
+
+	- Started to clarify rasterizer with inlined functions
+
+
+*************************************************************************
+Changes in build 148 (27/5/2012):
+
+Rasterizer:
+
+	- Introduced a variant to test the effect of different
+	  access patterns
+
+	- Work on SSE conversion on the new variant started
+
+*************************************************************************
+Changes in build 147 (26/5/2012):
+
+Rasterizer:
+
+	- Optimized hotspot loops by removing stuff that wasn't necessary to
+	  do on each iteration
+
+*************************************************************************
+Changes in build 146 (21/5/2012):
+
+Vertex shader setup:
+
+	- Added error checks to memory allocations
+
+	- Removed repeated calculations of same data to minimize
+	  errors
+
+*************************************************************************
+Changes in build 145 (18/5/2012):
+
+Quad format:
+
+	- CR_QuadFormat is used everywhere. Old fragment format
+	  descriptors removed
+
+*************************************************************************
+Changes in build 144 (16/2/2012):
+
+Rasterizer:
+
+	- Quad header used as reference instead of fixed offsets
+
+	- VectorF4 and VectorD2 used for more compact representation
+
+*************************************************************************
+Changes in build 143 (14/2/2012):
+
+Fragment format:
+
+	- CR_FragmentFormat object is used when applicable. Quad
+	  data format information is still in the old fragment
+	  format
+
+*************************************************************************
+Changes in build 142 (14/2/2012):
+
+Vertex shader:
+
+	- Reduced complexity of output registry
+
+	- Removed redundant local storage of fragment format data
+
+*************************************************************************
+Changes in build 141 (14/2/2012):
+
+Vertex shader:
+
+	- More optimized buffer organization
+
+*************************************************************************
+Changes in build 140 (14/2/2012):
+
+Vertex declaration:
+
+	- Reduced complexity in CR_VertexShader class
+
+Vertex shader:
+
+	- Uses compact semantic links
+
+	- Reduced data print
+
+*************************************************************************
+Changes in build 139 (14/2/2012):
+
+Fragment format:
+
+	- Moved to a separate class
+
+Rasterizer:
+
+	- Fixed a bug where partially covered quads got full 
+	  coverage mask
+
+*************************************************************************
+Changes in build 138 (13/2/2012):
+
+Rasterizer:
+
+	- Degenerate (not visible) triangle signaling works
+	  correctly
+
+	- Only those triangle setup variables that are changed by
+	  the rasterizer are copied to local variables	  
+
+*************************************************************************
+Changes in build 137 (13/2/2012):
+
+Rasterizer:
+
+	- Fixed slowdown issues caused by mismatched gradient
+	  generation variable number
+
+*************************************************************************
+Changes in build 136 (13/2/2012):
+
+Rasterizer:
+
+	- Quad format now stores packed depth and perspective
+	  correction
+
+*************************************************************************
+Changes in build 135 (13/2/2012):
+
+Rasterizer:
+
+	- Adjusted storage offset for gradients
+
+*************************************************************************
+Changes in build 134 (13/2/2012):
+
+Rasterizer:
+
+	- Moved into a separate class
+
+*************************************************************************
+Changes in build 133 (7/2/2012):
+
+Rasterizer:
+
+	- Increased number of precalculated step variables
+
+*************************************************************************
+Changes in build 132 (7/2/2012):
+
+Shader data conversions:
+
+	- Added SSE2 callbacks for FLOAT4 sources and destinations
+	  to both shaders
+
+*************************************************************************
+Changes in build 131 (7/2/2012):
+
+Vertex shader:
+
+	- Changed to a form that hides register setup and address
+	  steps from the application shader function
+
+_BOOL data type:
+
+	- Changed conversion to integral types so that true -> 1,
+	  false -> 0. Earlier conversion caused compiler to optimize
+	  COPY_X_BYTES() callbacks into MOV_X_BOOL() callbacks
+
+*************************************************************************
+Changes in Build 130 (7/2/2012):
+
+Renderer:
+
+	- Moved triangle setup to a separate method for clarity
+
+*************************************************************************
+Changes in Build 129 (5/2/2012):
+
+Pixel shader:
+
+	- Input register objects padded to nearest power of two for
+	  speed
+
+*************************************************************************
+Changes in Build 128 (5/2/2012):
+
+Pixel shader:
+
+	- Correct variable values are used for each pixel in the
+	  quad
+
+	- Quad stepping is abstracted by moving the actual shader
+	  operations to a separate function
+
+*************************************************************************
+Changes in Build 127 (5/2/2012):
+
+Datatype conversions:
+
+	- Changed FLOAT32->INT conversion from C-standard
+	  truncation to one that rounds, which is faster on x86
+
+*************************************************************************
+Changes in Build 126 (5/2/2012):
+
+Datatype conversions:
+
+	- Moved floating point normalization constants to global level
+
+*************************************************************************
+Changes in Build 125 (5/2/2012):
+
+Datatype conversions:
+
+	- Removed remaining redundant callbacks
+
+*************************************************************************
+Changes in Build 124 (3/2/2012):
+
+Pixel shader:
+
+	- Reads input color for top-left pixel and writes it to whole
+	  quad
+
+**************************************************************************
+Changes in Build 123 (2/2/2012):
+
+Pixel shader:
+
+	- Now writes data to all pixels in a quad
+
+**************************************************************************
+Changes in Build 122 (2/2/2012):
+
+Pixel shader:
+
+	- Now writes data to the top-left pixel of a quad
+
+Renderer:
+
+	- SyncFragmentFormat() and SyncRenderTargets() centralize
+	  information passing and buffer allocations caused by format
+	  changes
+
+**************************************************************************
+Changes in Build 121 (2/2/2012):
+
+Header files:
+
+	- Moved CR_VertexFormat,CR_VertexShader,ConceptBuffer,
+	  CR_PixelShader,CR_RenderTarget into separate header files
+	  for clarity
+
+**************************************************************************
+Changes in Build 120 (2/2/2012):
+
+Display Device:
+
+	- No longer uses ConceptBuffer object as frame buffer descriptor
+
+ConceptBuffer:
+
+	- Declaration moved to concept_renderer.h
+
+	- Added GetBufferData2D() that returns a struct as a more
+	  compact way to get buffer details
+
+	- No longer returns a BufferDraw object linked to selected
+	  mip-level (or thead specific area)
+
+**************************************************************************
+Changes in Build 119 (31/1/2012):
+
+Renderer:
+
+	- Render targets are managed somewhat correctly
+
+Rasterizer:
+
+	- Quad format is adjusted according to active color targets
+
+**************************************************************************
+Changes in Build 118 (31/1/2012):
+
+Renderer:
+	
+	- Returns interface to frame buffer as a render target instead
+	  of texture
+
+Textures:
+
+	- Returns render target interface
+
+
+**************************************************************************
+Changes in Build 117 (31/1/2012):
+
+Pixel shader:
+
+	- An initial form of input and output registers
+
+	- Constants supported
+
+Shader conversions:
+
+	- Removed last cases of non-16 byte aligned vectors
+
+**************************************************************************
+Changes in Build 116 (30/1/2012):
+
+General:
+
+	- Changed Vector2,Vector4 to VectorF2,VectorF4 for clarity
+
+Vertex Shader:
+
+	- Added callback selectors for converting to specific data
+	  type. (Previously had conversion FROM specific data type).
+
+Pixel shader:
+
+	- Added possibility to read from render target registers
+
+	- Added function bodies for buffer(render target/texture) 
+	  conversions to FLOAT
+
+Renderer:
+
+	- Uses correct CPU cache line size instead of 16 bytes
+
+**************************************************************************
+Changes in Build 115 (30/1/2012):
+
+Vertex Shader:
+
+	- Fixed a crash caused by using compiler-generated temporary
+	  variables to hold data that was expected to be 16-byte
+	  aligned
+
+**************************************************************************
+Changes in Build 114 (30/1/2012):
+
+
+Pixel shader:
+
+	- Added new output register type for render targets
+
+	- Wrote render target writes from FLOAT types
+
+**************************************************************************
+Changes in Build 113 (29/1/2012):
+
+General:
+
+	- Added _CHAR typedef for string characters. Should make it
+	  easier to add unicode support later
+
+Resources:
+
+	- Added support for implementation codes
+
+Pixel shader:
+
+	- Work started
+
+**************************************************************************
+Changes in Build 112 (29/1/2012):
+
+
+Renderer:
+
+	- Shader data type conversion callbacks selection mechanism
+	  according to CPU instruction set support
+
+	- Conversions from FLOAT1-4, and 16 & 32 byte copying in SSE2
+
+**************************************************************************
+Changes in Build 111 (28/1/2012):
+
+General:
+
+	- Added warnings to function return values. A warning means
+	  that the function itself succeeded, but caused problems
+	  elsewhere
+
+Renderer:
+
+	- SetVertexFormat() now checks whether the new vertex format
+	  provides all input semantics required by active vertex shader
+
+**************************************************************************
+Changes in Build 110 (28/1/2012):
+
+Renderer:
+
+	- CreateVertexFormat() now takes in std::vector<VertexDeclData>
+	  reference instead of an array pointer. This reduces the 
+	  chance of protection fault because std::vector carries a 
+	  size parameter.
+
+**************************************************************************
+Changes in Build 109 (27/1/2012):
+
+Generic:
+
+	- It is now possible to instantiate a ConceptRenderer object
+	  in a client application without including "concept_renderer.h"
+	  => Better encapsulation
+
+Vertex Declaration:
+
+	- Memory alignment of variables is checked per input stream
+	  so that MOVAPS can be safely used when possible. 
+
+	  NOTE: MOVUPS should be used when a 16-bit variable is read 
+	        from an unaligned location
+
+**************************************************************************
+Changes in Build 108 (26/1/2012):
+
+Concept Renderer:
+
+	- CreateVertexFormat() has improved guards against illegal
+	  variable parameters
+
+Vertex Shader:
+
+	- Semantic links now default to save NULL input/output
+	  registers that won't cause a protection fault if accessed
+
+**************************************************************************
+Changes in Build 107 (24/1/2012):
+
+Generic:
+
+	- Combined some header files to reduce fragmentation
+	- Addec CE_ prefix to resource interface classes
+
+**************************************************************************
+Changes in Build 106 (24/1/2012):
+
+Vertex Shader:
+
+	- Conversion from every input format to every shader data format
+
+**************************************************************************
+Changes in Build 105 (24/1/2012):
+
+Vertex Shader:
+
+	- Conversion of input formats to UINT[1-4] and INT[1-4], all
+	  branchless
+
+**************************************************************************
+Changes in Build 104 (23/1/2012):
+
+Vertex Shader:
+
+	- Conversions of input formats to UINT4 are now branchless
+
+**************************************************************************
+Changes in Build 103 (23/1/2012):
+
+Vertex Shader:
+
+	- Input conversions from DOUBLE types added
+
+	- Conversion of input formats to UINT4
+
+**************************************************************************
+Changes in Build 102 (23/1/2012):
+
+Vertex Declaration:
+
+	- Added DOUBLE[1,2,3,4] as valid types
+
+Vertex Shader:
+
+	- All input formats except DOUBLE are now converted to
+	  FLOAT and DOUBLE types
+
+**************************************************************************
+Changes in Build 101 (23/1/2012):
+
+General:
+
+	- Changed typedefs _REALNUM to _FLOAT32 and _REALNUM_DOUBLE
+	  to _FLOAT64
+
+Vertex Shader:
+
+	- Replaced conversions that don't change data type or vector
+	  length with generic copy functions
+
+**************************************************************************
+Changes in Build 100 (22/1/2012):
+
+Math:
+
+	- Float16 class for those platforms without native support
+	  for 16-bit floating point
+
+Vertex Shader:
+
+	- Added input conversion from FLOAT16 types to FLOAT4
+
+	- All conversions now use constant pointers as input
+	  to allow for compiler optimization
+
+**************************************************************************
+Changes in Build 99 (22/1/2012):
+
+Vertex Shader:
+
+	- All conversions that extend variables to a four-component
+	  vector now set w = 1. The exception is BOOL, in which case
+	  w = -1 (all bits set)
+
+**************************************************************************
+Changes in Build 98 (22/1/2012):
+
+Vertex Shader:
+
+	- Conversion callbacks between all non-matrix shader data types
+
+**************************************************************************
+Changes in Build 97 (22/1/2012):
+
+BufferDraw:
+
+	- Wrote inline assembly version of color buffer fill.
+	  Noticable speed-up expected for resolutions larger 
+	  than 1024x768.
+
+**************************************************************************
+Changes in Build 96 (20/1/2012):
+
+Vertex Shader:
+
+	- Added output conversions from BOOL1-4
+
+	- Added a platform-independent boolean type _BOOL, which has
+	  all bits set to one when true (all zero otherwise).
+
+	- Reduced input conversion function inputs to one
+
+**************************************************************************
+Changes in Build 95 (20/1/2012):
+
+Vertex Shader:
+
+	- Added output conversions from FLOAT1-4,UINT1-4,INT1-4
+
+**************************************************************************
+Changes in Build 94 (19/1/2012):
+
+Rasterizer:
+
+	- Fixed a bug that didn't draw the bottom-right pixel of 
+	  quads (caused by a wrong write mask offset)        
+
+**************************************************************************
+Changes in Build 93 (19/1/2012):
+
+Rasterizer:
+
+	- Quad generation no longer assumes anything about variable
+          offsets in the quad data structure
+
+**************************************************************************
+Changes in Build 92 (19/1/2012):
+
+Rasterizer:
+
+	- Interpolates DOUBLE variables
+
+	- Camera space (x,y) and perspective correction term (1/w)
+	  are only calculated at top-left pixel of the quad
+
+
+**************************************************************************
+Changes in Build 91 (19/1/2012):
+
+Rasterizer:
+
+	- Render target address is only stored for the top-left
+	  corner of a quad
+
+	- A write mask selector (4 bytes) is stored per quad instead 
+	  of the entire write mask (16 bytes)
+
+**************************************************************************
+Changes in Build 90 (18/1/2012):
+
+Rasterizer:
+
+	- Buffers for variables and their gradients are allocated 
+	  externally from heap (aligned to 16-byte boundary)
+
+	- Rasterizer no longer assumes that vertex format is exactly
+	  4 x FLOAT4, with POSITION semantic as the first variable
+
+	- A number of variables are now aligned to 16-byte boundary
+
+**************************************************************************
+Changes in Build 89 (17/1/2012):
+
+Rasterizer:
+
+	- Variables are only interpolated for the top-left pixel of
+          a quad. Pixel shading uses gradients to calculate variables
+          for other pixels.
+
+**************************************************************************
+Changes in Build 88 (17/1/2012):
+
+Rasterizer:
+
+	- Variables now step from screen(0,0) to top-left corner
+	  of the tile instead of stepping from tile to tile
+	  (better precision, less work)
+
+	- Reduced cost of variable interpolation with precalculated
+          steps
+
+**************************************************************************
+Changes in Build 87 (16/1/2012):
+
+- Clipper now works on 16-byte variable blocks (float,double,constant)
+  instead of data type specific callbacks
+
+- Added template for two component vectors (primarily for double2)
+
+**************************************************************************
+Changes in Build 86 (16/1/2012):
+
+- Fixed a bug in SetVertexShader() that could cause a buffer overflow
+
+- Vertex shader now groups output variables into blocks of 16 bytes.
+  One variable is completely in a single block if possible, and excess
+  space is filled with smaller variables
+
+- Input & output semantic flags are set automatically
+
+- Shader constant buffer allocation & address calculation is automatic
+
+- Vertex shader code uses position-free (in the sense of variable
+  list index) references to input and output semantics
+
+**************************************************************************
+Changes in Build 85 (12/1/2012):
+
+- Proper perspective correction term (1/w) is now interpolated and
+  used by the rasterizer
+
+- Camera space (x,y) is interpolated by the rasterizer for those
+  pixel shaders that require world position data
+
+- When rasterizing partially covered tiles, only those quads with at
+  least one pixel within the triangle are sent to pixel shader
+
+**************************************************************************
+Changes in Build 84 (11/1/2012):
+
+- Moved clipper cache allocations out of clipping method
+
+**************************************************************************
+Changes in Build 83 (10/1/2012):
+
+- Reduced complexity of trivial accept/reject step in the clipper
+
+**************************************************************************
+Changes in Build 82 (10/1/2012):
+
+- Triangles are now clipped against all six planes
+
+**************************************************************************
+Changes in Build 81 (10/1/2012):
+
+- Clipper now clips against left and right planes
+
+- Clipper finally uses callback methods for vertex variable transport
+
+**************************************************************************
+Changes in Build 80 (9/1/2012):
+
+- Wrote a more compact clipper
+
+**************************************************************************
+Changes in Build 79 (5/1/2012):
+
+- Vector4 is now template MathVector4<type>
+
+- Function pointers for vertex shader input conversions are now set up
+  at compile time
+
+**************************************************************************
+Changes in Build 78 (5/1/2012):
+
+- Changed vertex shader register <-> local variable conversions and
+  moves to a more intuitive format
+
+**************************************************************************
+Changes in Build 77 (3/1/2012):
+
+- Clipper now works explicitly on triangles
+- Clipper no longer assumes that POSITION is the first variable in the
+  fragment
+
+**************************************************************************
+Changes in Build 76 (2/11/2011):
+
+- Homogeneous clipper has correct clip planes
+
+**************************************************************************
+Changes in Build 75 (26/10/2011):
+
+- Fragment format is extracted from vertex shader
+
+- Fragment format validation 
+  (ie. check formats and presence of POSITION-semantic)
+
+**************************************************************************
+Changes in Build 74 (26/10/2011):
+
+- Camera control with keyboard
+
+**************************************************************************
+Changes in Build 73 (25/10/2011):
+
+- Actor class combines mesh, object position and orientation
+
+**************************************************************************
+Changes in Build 72 (24/10/2011):
+
+- Main program rotations managed with quaternions
+
+**************************************************************************
+Changes in Build 71 (23/10/2011):
+
+- Added keyboard interface to platform layer
+
+- Added DirectInput keyboard for Windows platform
+
+**************************************************************************
+Changes in Build 70 (20/10/2011):
+
+- Separate class for vertex shader input and output registers to prevent
+  writing back to inputs
+
+- Vertex shader input registers automatically convert input stream data to
+  the format defined in the shader code
+
+- Shader intrinsics extended to four input parameters, which should
+  cover all important instructions
+
+**************************************************************************
+Changes in Build 69 (19/10/2011):
+
+- Moved fragment buffer allocation outside of rasterizer function
+  for speed
+
+**************************************************************************
+Changes in Build 68 (19/10/2011):
+
+- Better data format abstraction in vertex shader code
+
+**************************************************************************
+Changes in Build 67 (17/10/2011):
+
+- Rasterizer outputs 2x2 pixel quads
+
+- Pixel shader code works a quad at a time
+
+**************************************************************************
+Changes in Build 66 (16/10/2011):
+
+- Added vertex variable gradient calculation & stepping to rasterizer
+
+- Rasterizer fills with interpolated color
+
+**************************************************************************
+Changes in Build 65 (14/10/2011):
+
+- Vertex shader output buffer size is matched with maximum number of
+  inputs and vertex size
+
+**************************************************************************
+Changes in Build 64 (13/10/2011):
+
+- More conversions between vertex shader variable types
+
+**************************************************************************
+Changes in Build 63 (14/9/2011):
+
+- Further abstraction of vertex shader input registers
+
+**************************************************************************
+Changes in Build 62 (14/9/2011):
+
+- Input registers changed to a class that converts input data
+  to desired internal format
+
+**************************************************************************
+Changes in Build 61 (14/9/2011):
+
+- Basic implementation of vertex shader input format->internal format
+  conversions with function pointers
+
+**************************************************************************
+Changes in Build 60 (14/9/2011):
+
+- Vertex shader constant access by reference variable instead
+  of by name
+
+**************************************************************************
+Changes in Build 59 (14/9/2011):
+
+- Removed deprecated fixed function pipeline methods
+
+**************************************************************************
+Changes in Build 58 (13/9/2011):
+
+- Vertex processing moved to vertex shader
+
+- Wrote basic model->view->projection vertex shader
+
+**************************************************************************
+Changes in Build 57 (13/9/2011):
+
+- Vertex shader has input register allocation and linking to vertex
+  format
+
+- Vertex shader has a constant buffer, constant declarations, and
+  a method to set constants (addressed by name)
+
+**************************************************************************
+Changes in Build 56 (9/9/2011):
+
+- Changed vertex processing to use declared vertex format
+
+**************************************************************************
+Changes in Build 55 (9/9/2011):
+
+- More efficient vertex format building
+
+**************************************************************************
+Changes in Build 54 (8/9/2011):
+
+- Prototype for vertex format creation
+
+	* For each variable, stores stream source, 
+          stream offset, and data format
+
+
+**************************************************************************
+Changes in Build 53 (8/9/2011):
+
+- Rendering of convex polygons as triangle fans
+
+- Support for multiple vertex inputs
+
+**************************************************************************
+Changes in Build 52 (7/9/2011):
+
+- Divided concept renderer sources into multiple files
+
+- Prototyped a vertex declaration format
+
+**************************************************************************
+Changes in Build 51 (6/9/2011):
+
+- Modified rasterizer so that only an edge's critical tile corners are
+  used.
+
+- Rasterizer now marginally faster
+
+**************************************************************************
+Changes in Build 50 (5/9/2011):
+
+- Half-space rasterizer more streamlined and prepared for SSE
+  conversion
+
+**************************************************************************
+Changes in Build 49 (5/9/2011):
+
+- Minimized false positives in half-space rasterizer
+
+- Rasterizer now uses edge function sign mask to determine
+  tile coverage
+
+**************************************************************************
+Changes in Build 48 (4/9/2011):
+
+- Tiled half-space rasterizer no longer causes false negatives
+
+- Still no increase in speed. Windowed mode issues?
+
+**************************************************************************
+Changes in Build 47 (4/9/2011):
+
+- Half-space rasterizer tests 8x8 tiles for trivial accept/reject.
+  Only partially covered tiles are tested per pixel.
+
+- Rasterizer is probably still slower than scanline rasterizer
+
+**************************************************************************
+Changes in Build 46 (3/9/2011):
+
+- Vertex buffer added
+
+- Triangle rendering from vertex buffer
+
+- Renderer uses internal matrices
+
+- Fixed a bug in matrix multiplication
+
+- FPS counter
+
+**************************************************************************
+Changes in Build 45 (2/9/2011):
+
+- Half-space rasterizer is now in fixed point form
+
+**************************************************************************
+Changes in Build 44 (2/9/2011):
+
+- Moved to a right-handed coordinate system in which x = right, y = up,
+  and z = towards viewer
+
+- Camera default view dir is (0,0,-1)
+
+- Floating point version of half-space rasterizer almost as optimal
+  as it can get
+
+
+**************************************************************************
+Changes in Build 43 (1/9/2011):
+
+- Vector4 and Matrix4 for homogeneous vector operations
+
+- Homogeneous perspective projection matrix generation
+
+- Homogeneous perspective projection and perspective division
+
+- Draws test triangle vertices
+
+**************************************************************************
+Changes in Build 42 (1/9/2011):
+
+- Finally settled to an approach to the whole texture and render
+  target issue
+
+- All 2d textures can provide a buffer draw object
+
+**************************************************************************
+Changes in Build 41 (30/6/2011):
+
+- Class Renderer is the interface for all renderers
+
+- Class ConceptRenderer is the interface for the software renderer
+
+- Textures and render targets implemented internally as ConceptBuffer
+  objects. Reference objects are provided for external use
+
+**************************************************************************
+Changes in Build 40 (29/6/2011):
+
+- Removed Direct3d resource release and reallocation during device
+  reset as unecessary
+
+- Limited GetDrawObject() to 2d integer color buffers
+
+**************************************************************************
+Changes in Build 39 (29/6/2011):
+
+- New 2d drawing: bitmap blit for 32-bit color
+
+**************************************************************************
+Changes in Build 38 (29/6/2011):
+
+- New 2d drawing: filled circle
+
+- Fixed clipping bugs in circle drawing
+
+**************************************************************************
+Changes in Build 37 (28/6/2011):
+
+- Fixed a bug in which the last thread sub-buffer had too many
+  scanlines and caused a crash
+
+- 2d drawing: box,fill box,circle,horizontal line,vertical line,point
+
+**************************************************************************
+Changes in Build 36 (28/6/2011):
+
+- Render area is finally clipped into window instead of stretched
+
+	NOTE: Scale to window behavior is obtained by not updating render
+              target size to window size.
+
+**************************************************************************
+Changes in Build 35 (28/6/2011):
+
+- Direct3d now displays the top-left corner of the back buffer
+  in a window
+
+- Buffer fill works
+
+**************************************************************************
+Changes in Build 34 (27/6/2011):
+
+- BufferDraw interface defined
+
+- BufferDraw for color format a8-r8-g8-b8 with buffer fill implemented
+
+**************************************************************************
+Changes in Build 33 (27/6/2011):
+
+- RenderBuffer has a method for creating render targets.
+
+- Buffer scanlines are padded for tiled rendering and cache line
+
+- Buffer scanlines are optionally padded to the nearest power of
+  two. An error is produced if the new width is not an integer
+  multiple of both rendering tile size and cache line.
+
+	* Texel offset calculation is potentially faster
+
+- It is no longer possible to create render targets with multiple
+  mip-map levels
+
+**************************************************************************
+Changes in Build 32 (21/6/2011):
+
+- Render buffer class
+
+- Display device now blits a render buffer object
+
+**************************************************************************
+Changes in Build 31 (20/6/2011):
+
+- DisplayDevice can fill the window's client area with given color
+
+- Moved window title changes outside of windows layer
+
+**************************************************************************
+Changes in Build 30 (20/6/2011):
+
+- Graphics mode initialization for windowed display
+
+
+**************************************************************************
+Changes in Build 29 (19/6/2011):
+
+- Windowed mode and display mode support is checked automatically
+  during enumeration
+
+**************************************************************************
+Changes in Build 28 (19/6/2011):
+
+- Desktop graphics mode check and display mode enumeration in 
+  PlatformLayer.Configure() method
+
+**************************************************************************
+Changes in Build 27 (18/6/2011):
+
+- Added display mode enumeration for Direct3d 9
+
+**************************************************************************
+Changes in Build 26 (18/6/2011):
+
+- Streamlined window creation. Now it is only possible to create
+  a full-screen popup or normal window.
+
+- Window is created so that its client area is of given size
+
+- Window's client area size is updated during resize operations
+
+- Program pauses if the window is not visible
+
+
+**************************************************************************
+Changes in Build 25 (17/6/2011):
+
+- Platform abstraction mechanism can now create windows in x86,win32
+  mode
+
+**************************************************************************
+Changes in Build 24 (12/6/2011):
+
+- Radix 4 division algorithm works, but needs calibration for
+  large numerators
+
+**************************************************************************
+Changes in Build 23 (12/6/2011):
+
+- Fixed point class has all arithmetic and comparison operators
+	
+- Fixed point square root with per-bit algorithm
+
+**************************************************************************
+Changes in Build 22 (7/6/2011):
+
+- Wrote fixed point -> float conversions that only use integer
+  arithmetic
+
+- Fixed point class has additional functionality
+
+**************************************************************************
+Changes in Build 21 (7/6/2011):
+
+- Added fixed point format to internal formats. Still a lot of
+  methods to write.
+
+- Wrote float->fixed point conversions that only use integer
+  arithmetic for portability
+
+
+**************************************************************************
+Changes in Build 20 (2/6/2011):
+
+- Class PlatformLayer for hardware & operating system abstraction
+
+- Windows layer can detect CPU instruction set support, cache line size,
+  and number of real cores and hyperthreading units.
+
+**************************************************************************
+Changes in Build 19 (1/6/2011):
+
+- Work on version 0.1 concluded, but remains the only demoable version
+  for the time being.
+
+**************************************************************************
+Changes in Build 18 (1/6/2011):
+
+- Fixed a precision bug in texture coordinates U,V that caused the
+  program to crash.
+	NOTE: Never use RCPSS to calculate z again!
+
+**************************************************************************
+Changes in Build 17 (29/5/2011):
+
+- Fixed a bug at z-value writing in MMX+SSE texture mappers
+
+**************************************************************************
+Changes in Build 16 (29/5/2011):
+
+- Implemented MMX+SSE version of bilinear texture mapping. Speed boost
+  ~10 FPS at 1024x768. Will be the default world texture mapper from
+  now on.
+
+**************************************************************************
+Changes in Build 15 (29/5/2011):
+
+- MMX+SSE texture mapping works correctly. Speed boost only 4-7 FPS at
+  1024x768.
+
+**************************************************************************
+Changes in Build 14 (28/5/2011):
+
+- Implemented MMX+SSE version of nearest texture mapping. Speed boost
+  expected to be around 15 FPS at 1024x768.
+ 	 NOTE: Doesn't draw the last affine sub-span yet!
+
+
+**************************************************************************
+Changes in Build 13c (16/5/2011):
+
+- Portable version of Bilinear filtering most likely memory access bound 
+  at this point.
+
+**************************************************************************
+Changes in Build 13b (15/5/2011):
+
+- Slightly increased bilinear filtering FPS. Might be the limit of non-MMX
+  version.
+
+**************************************************************************
+Changes in Build 13 (15/5/2011):
+
+- Increased bilinear filtering FPS by 10 on 1024x768
+
+**************************************************************************
+Changes in Build 12b (8/5/2011):
+
+- Started work on dynamically configured fragment data format.
+
+**************************************************************************
+Changes in Build 12a (4/3/2011):
+
+- Replaced C++ int() operators with FloatToInt() that skips the
+  rounding mode change to truncation and back as required by C standard
+
+**************************************************************************
+Changes in Build 12 (3/3/2011):
+
+- Complete spotlight fix added to portable Phong shader. FPS cost approx
+  1 per light source.
+
+- Removed ceiling of irradiance values during float->fixed16.16 conversion
+  for speed
+
+**************************************************************************
+Changes in Build 11 alpha (1/3/2011):
+
+- Added a spotlight boundary fix to portable Phong shader. FPS cost
+  less than expected (2+ per light).
+
+**************************************************************************
+Changes in Build 10 (26/2/2011):
+
+- Fixed bugs in SSE Phong.
+
+**************************************************************************
+Changes in Build 9 delta (25/2/2011):
+
+- SSE Phong now uses 7.9 fixed point format for irradiances when
+  shading affine sub-spans
+
+- SSE Phong shading implemented with MMX
+
+NOTES: SSE Phong finally beat 40 FPS !
+
+**************************************************************************
+Changes in Build 9 gamma (23/2/2011):
+
+- Internal light source data is now optimized so that only lights
+  that are ON are transformed and sent to shaders
+
+- Portable Phong now uses 7.9 fixed point format for irradiances 
+  when shading affine sub-spans
+
+**************************************************************************
+Changes in Build 9 beta (23/2/2011):
+
+- Fixed issues with spotlight shape in the portable Phong by increasing 
+  the precision of inverse square root calculations
+
+- Separated vertex preprocessing (Gouraud irradiances) from the vertex
+  shader so that it can be changed according to light source data model
+
+**************************************************************************
+Changes in Build 9 alpha (20/2/2011):
+
+- Light sources can be turned on and off
+
+**************************************************************************
+Changes in Build 8 (20/2/2011):
+
+- SSE version of phong shader converted to non-HDR form with
+  spotlight coefficient
+
+- Light data format switching function completed
+
+- Light sources can now specify the color of ambient light they
+  generate, and the ratio of power that goes to ambient light
+
+- Gouraud shader restored
+
+**************************************************************************
+Changes in Build 7 (19/2/2011):
+
+- Added support for spotlight coefficient: spotlight divided into
+  two sections. In the inner cone, irradiance is unaffected, while
+  in the outer it fades linearly towards cone boundary
+
+- Added light source parameters for quadratic distance attenuation term
+
+- It is now possible to switch between scalar and parallel light data
+  model in the fly
+	TODO: Add all variables to switch code
+
+- Phong shader now clamp at irradiance value of 1.25 to 
+  avoid overbrightening
+
+**************************************************************************
+Changes in Build 6 gamma (18/2/2011):
+
+- Renderer can use either scalar or parallel processing optimized
+  light source format
+
+- Abandoned tone mapping in lighting shaders
+
+**************************************************************************
+Changes in Build 6 beta (17/2/2011):
+
+- Span construction is almost functional
+
+- Integrated light sources to the renderer class
+
+- Implemented parallelized lighting by four lights at the same time
+
+**************************************************************************
+Changes in Build 5 (10/2/2011):
+
+- Separated triangle rasterization overhead from the actual process
+  of filling the horizontal spans
+
+- Implemented framebuffer and depth buffer clears with SSE
+
+**************************************************************************
+Changes in Build 4 (8/2/2011):
+
+- Added support for a second texture
+
+- Enabled two-sided surfaces
+
+**************************************************************************
+Changes in Build 3 (8/2/2011):
+
+- Fixed a bug in world BSP walk that caused a child sub-space to vanish
+  if the nearer child sub-space was not visible
+
+- Changed rendering pipeline so that rasterizer and vertex shader are
+  completely separated
+
+**************************************************************************
+Features in Build 2 (7/2/2011):
+
+- Pixel and vertex shader architechture
+
+	* Perspective correct texture mapping
+
+	* Bilinearly filtered textures prototype
+
+	* Phong shading prototype
+
+	* Gouraud shading prototype
+
+	* Gouraud shading requires two-stage vertex shading
+	  to maintain consistent lighting
+
+- Modular rendering pipeline. Following elements changed easily
+
+	* Render target
+	* Rasterizer
+	* Shaders
+
+- World rendering
+
+	* Front-to-back BSP walk with early bounding box reject /
+	  trivial accept
+
+	* Supports a precalculated potentially visible set for
+	  BSP leafs
+
+	* Surfaces in BSP leaves
+
+	* Zero overdraw with coverage span algorithm.
+
+	* Z-buffer fill
+
+- Object rendering
+
+	* Depth sort with z-buffer
+
+	* Objects can maintain a copy of vertex data in internal
+	  orientation
+
+- Supports one texture per surface
+
+- Shadow maps fully functional
+
+- Object data format
+
+	* Separate mesh and surface detail (color,texture etc) files
+
+
+- Resource management
+
+	* A basic architecture that manages resources of one type,
+	  and loads each requested resource exactly once.
+
+	* Automatic texture mip-map generation at load time if
+	  a image file is loaded

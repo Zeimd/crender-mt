@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{ABFF4CA7-05F7-47EB-90EF-A6846B53532B}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>crendermt</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\lib\Debug\</OutDir>
+    <TargetName>crender-mt-debug</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\include\</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(SolutionDir)\lib\Debug\</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\lib\Release\</OutDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\include\</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(SolutionDir)\lib\Release\</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;CRENDERMT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);ceng-platform-debug.lib;liblog.lib</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)\lib\Debug\*.dll" "$(SolutionDir)\bin\"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CRENDERMT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);liblog.lib;ceng-platform.lib</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)\lib\Release\*.dll" "$(SolutionDir)\bin\"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="api-command.h" />
+    <ClInclude Include="buffer-channel.h" />
+    <ClInclude Include="buffer-clear.h" />
+    <ClInclude Include="buffer-factory.h" />
+    <ClInclude Include="buffer-layout.h" />
+    <ClInclude Include="buffer-tiling.h" />
+    <ClInclude Include="cache-tag.h" />
+    <ClInclude Include="clipper-batch.h" />
+    <ClInclude Include="clipper-state.h" />
+    <ClInclude Include="clipper.h" />
+    <ClInclude Include="command-thread.h" />
+    <ClInclude Include="cr-image-buffer.h" />
+    <ClInclude Include="cr-memory-pool.h" />
+    <ClInclude Include="cr-pixel-shader.h" />
+    <ClInclude Include="cr-pool-block.h" />
+    <ClInclude Include="cr-resource.h" />
+    <ClInclude Include="cr-sampler-state.h" />
+    <ClInclude Include="cr-shader-const.h" />
+    <ClInclude Include="cr-shader-view-tex2d.h" />
+    <ClInclude Include="cr-shader-view.h" />
+    <ClInclude Include="cr-swap-chain.h" />
+    <ClInclude Include="cr-texture-2d.h" />
+    <ClInclude Include="cr-vertex-buffer.h" />
+    <ClInclude Include="cr-vertex-format.h" />
+    <ClInclude Include="cr-vertex-shader.h" />
+    <ClInclude Include="crender-base.h" />
+    <ClInclude Include="crender-context.h" />
+    <ClInclude Include="crender.h" />
+    <ClInclude Include="draw-batch.h" />
+    <ClInclude Include="draw-call.h" />
+    <ClInclude Include="fragment-format.h" />
+    <ClInclude Include="fragment-var.h" />
+    <ClInclude Include="locking-queue.h" />
+    <ClInclude Include="locking-stage.h" />
+    <ClInclude Include="locking-task.h" />
+    <ClInclude Include="pipeline-batch.h" />
+    <ClInclude Include="pipeline-stage.h" />
+    <ClInclude Include="pipeline.h" />
+    <ClInclude Include="primitive-data.h" />
+    <ClInclude Include="pshader-input-semantic.h" />
+    <ClInclude Include="pshader-input.h" />
+    <ClInclude Include="pshader-instance.h" />
+    <ClInclude Include="pshader-output-semantic.h" />
+    <ClInclude Include="pshader-output.h" />
+    <ClInclude Include="pshader-texture.h" />
+    <ClInclude Include="pshader-wrapper.h" />
+    <ClInclude Include="quad-format.h" />
+    <ClInclude Include="rasterizer-batch.h" />
+    <ClInclude Include="rasterizer-cr.h" />
+    <ClInclude Include="render-state.h" />
+    <ClInclude Include="render-task.h" />
+    <ClInclude Include="render-thread.h" />
+    <ClInclude Include="rendertarget-cr.h" />
+    <ClInclude Include="rtarget-data.h" />
+    <ClInclude Include="shader-common.h" />
+    <ClInclude Include="shader-const-data.h" />
+    <ClInclude Include="shader-datatype.h" />
+    <ClInclude Include="shader-link.h" />
+    <ClInclude Include="shader-manager.h" />
+    <ClInclude Include="shader-wrapper.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="task-clipper.h" />
+    <ClInclude Include="task-pshader.h" />
+    <ClInclude Include="task-rasterizer.h" />
+    <ClInclude Include="task-triangle-setup.h" />
+    <ClInclude Include="texture-unit.h" />
+    <ClInclude Include="triangle-batch.h" />
+    <ClInclude Include="triangle-data.h" />
+    <ClInclude Include="vertex-stream.h" />
+    <ClInclude Include="vertex-variable.h" />
+    <ClInclude Include="viewport-state.h" />
+    <ClInclude Include="vshader-input-semantic.h" />
+    <ClInclude Include="vshader-input.h" />
+    <ClInclude Include="vshader-instance.h" />
+    <ClInclude Include="vshader-output.h" />
+    <ClInclude Include="vshader-wrapper.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="api-command.cpp" />
+    <ClCompile Include="buffer-clear.cpp" />
+    <ClCompile Include="buffer-factory.cpp" />
+    <ClCompile Include="clipper-batch.cpp" />
+    <ClCompile Include="clipper.cpp" />
+    <ClCompile Include="cmd-clear-depth.cpp" />
+    <ClCompile Include="cmd-clear-target.cpp" />
+    <ClCompile Include="cmd-draw.cpp" />
+    <ClCompile Include="cmd-flip-buffers.cpp" />
+    <ClCompile Include="command-thread.cpp" />
+    <ClCompile Include="cr-image-buffer.cpp" />
+    <ClCompile Include="cr-pixel-shader.cpp" />
+    <ClCompile Include="cr-resource.cpp" />
+    <ClCompile Include="cr-sampler-state.cpp" />
+    <ClCompile Include="cr-scene.cpp" />
+    <ClCompile Include="cr-setup.cpp" />
+    <ClCompile Include="cr-shader-const.cpp" />
+    <ClCompile Include="cr-shader-view-tex2d.cpp">
+      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AssemblyAndSourceCode</AssemblerOutput>
+    </ClCompile>
+    <ClCompile Include="cr-swap-chain.cpp" />
+    <ClCompile Include="cr-texture-2d.cpp" />
+    <ClCompile Include="cr-vertex-buffer.cpp" />
+    <ClCompile Include="cr-vertex-format.cpp" />
+    <ClCompile Include="cr-vertex-shader.cpp" />
+    <ClCompile Include="crender-context.cpp" />
+    <ClCompile Include="crender-mt.cpp" />
+    <ClCompile Include="depth-test-port.cpp" />
+    <ClCompile Include="dllmain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="draw-batch.cpp" />
+    <ClCompile Include="fragment-format.cpp" />
+    <ClCompile Include="locking-queue.cpp" />
+    <ClCompile Include="locking-stage.cpp" />
+    <ClCompile Include="locking-task.cpp" />
+    <ClCompile Include="pipeline-batch.cpp" />
+    <ClCompile Include="pipeline-stage.cpp" />
+    <ClCompile Include="pipeline.cpp" />
+    <ClCompile Include="pshader-input.cpp">
+      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NoListing</AssemblerOutput>
+      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AssemblyAndSourceCode</AssemblerOutput>
+    </ClCompile>
+    <ClCompile Include="pshader-instance.cpp" />
+    <ClCompile Include="pshader-output.cpp" />
+    <ClCompile Include="pshader-wrapper.cpp" />
+    <ClCompile Include="quad-format.cpp" />
+    <ClCompile Include="ras-coverage-test.cpp" />
+    <ClCompile Include="rasterizer-batch.cpp" />
+    <ClCompile Include="rasterizer-setup.cpp" />
+    <ClCompile Include="rasterizer-work.cpp" />
+    <ClCompile Include="render-state.cpp" />
+    <ClCompile Include="render-thread.cpp" />
+    <ClCompile Include="rendertarget-cr.cpp" />
+    <ClCompile Include="rtarget-buffer-swap.cpp" />
+    <ClCompile Include="rtarget-clear.cpp" />
+    <ClCompile Include="rtarget-data.cpp" />
+    <ClCompile Include="rtarget-depth-test.cpp" />
+    <ClCompile Include="crender-pshader.cpp" />
+    <ClCompile Include="setup-vertex.cpp" />
+    <ClCompile Include="shader-float4.cpp" />
+    <ClCompile Include="shader-link.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="task-clipper.cpp" />
+    <ClCompile Include="task-pshader.cpp" />
+    <ClCompile Include="task-rasterizer.cpp" />
+    <ClCompile Include="task-triangle-setup.cpp" />
+    <ClCompile Include="texture-unit.cpp" />
+    <ClCompile Include="triangle-batch.cpp" />
+    <ClCompile Include="vshader-input.cpp" />
+    <ClCompile Include="vshader-instance.cpp" />
+    <ClCompile Include="vshader-output.cpp" />
+    <ClCompile Include="vshader-wrapper.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

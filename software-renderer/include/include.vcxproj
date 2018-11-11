@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3B73D8F5-E978-4B9A-94CD-9F30D9636CFE}</ProjectGuid>
+    <RootNamespace>include</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="ceng.h" />
+    <ClInclude Include="ceng\datatypes.h" />
+    <ClInclude Include="ceng\datatypes\abstract-data.h" />
+    <ClInclude Include="ceng\datatypes\aligned-buffer.h" />
+    <ClInclude Include="ceng\datatypes\array-atomic.h" />
+    <ClInclude Include="ceng\datatypes\base-ptr.h" />
+    <ClInclude Include="ceng\datatypes\basic-types.h" />
+    <ClInclude Include="ceng\datatypes\boolean.h" />
+    <ClInclude Include="ceng\datatypes\bufferdata-2d.h" />
+    <ClInclude Include="ceng\datatypes\ce-string.h" />
+    <ClInclude Include="ceng\datatypes\color-format.h" />
+    <ClInclude Include="ceng\datatypes\condition-variable.h" />
+    <ClInclude Include="ceng\datatypes\cpu-info.h" />
+    <ClInclude Include="ceng\datatypes\critical-section.h" />
+    <ClInclude Include="ceng\datatypes\deleted-shared-ptr.h" />
+    <ClInclude Include="ceng\datatypes\fixedpoint32.h" />
+    <ClInclude Include="ceng\datatypes\float16.h" />
+    <ClInclude Include="ceng\datatypes\future.h" />
+    <ClInclude Include="ceng\datatypes\graphics-adapter-desc.h" />
+    <ClInclude Include="ceng\datatypes\keyboard.h" />
+    <ClInclude Include="ceng\datatypes\leaf-vector.h" />
+    <ClInclude Include="ceng\datatypes\local-ptr.h" />
+    <ClInclude Include="ceng\datatypes\managed-ptr.h" />
+    <ClInclude Include="ceng\datatypes\multisample-desc.h" />
+    <ClInclude Include="ceng\datatypes\mutex.h" />
+    <ClInclude Include="ceng\datatypes\platform-renderer.h" />
+    <ClInclude Include="ceng\datatypes\platform\vstudio-win32.h" />
+    <ClInclude Include="ceng\datatypes\promise.h" />
+    <ClInclude Include="ceng\datatypes\rectangle.h" />
+    <ClInclude Include="ceng\datatypes\release-deleter.h" />
+    <ClInclude Include="ceng\datatypes\return-val.h" />
+    <ClInclude Include="ceng\datatypes\ring-buffer.h" />
+    <ClInclude Include="ceng\datatypes\sampler-state-desc.h" />
+    <ClInclude Include="ceng\datatypes\shader-res-array-tex1d.h" />
+    <ClInclude Include="ceng\datatypes\shader-res-array-tex2d-multi.h" />
+    <ClInclude Include="ceng\datatypes\shader-res-array-tex2d.h" />
+    <ClInclude Include="ceng\datatypes\shader-res-array.h" />
+    <ClInclude Include="ceng\datatypes\shader-res-buffer.h" />
+    <ClInclude Include="ceng\datatypes\shader-res-cubemap.h" />
+    <ClInclude Include="ceng\datatypes\shader-res-tex1d.h" />
+    <ClInclude Include="ceng\datatypes\shader-res-tex2d-multi.h" />
+    <ClInclude Include="ceng\datatypes\shader-res-tex2d.h" />
+    <ClInclude Include="ceng\datatypes\shader-res-tex3d.h" />
+    <ClInclude Include="ceng\datatypes\shader-resource-view-desc.h" />
+    <ClInclude Include="ceng\datatypes\sliding-window.h" />
+    <ClInclude Include="ceng\datatypes\string-manipulator.h" />
+    <ClInclude Include="ceng\datatypes\strings\buffer-ref.h" />
+    <ClInclude Include="ceng\datatypes\strings\character-ref.h" />
+    <ClInclude Include="ceng\datatypes\strings\character.h" />
+    <ClInclude Include="ceng\datatypes\strings\iterator.h" />
+    <ClInclude Include="ceng\datatypes\sub-resource-data.h" />
+    <ClInclude Include="ceng\datatypes\swap-chain-desc.h" />
+    <ClInclude Include="ceng\datatypes\system-info.h" />
+    <ClInclude Include="ceng\datatypes\temp-ptr.h" />
+    <ClInclude Include="ceng\datatypes\tex2d-desc.h" />
+    <ClInclude Include="ceng\datatypes\thread.h" />
+    <ClInclude Include="ceng\datatypes\window.h" />
+    <ClInclude Include="ceng\enums\buffer-binding.h" />
+    <ClInclude Include="ceng\enums\buffer-cpu-access.h" />
+    <ClInclude Include="ceng\enums\buffer-options.h" />
+    <ClInclude Include="ceng\enums\buffer-type.h" />
+    <ClInclude Include="ceng\enums\buffer-usage.h" />
+    <ClInclude Include="ceng\enums\cpu-core-type.h" />
+    <ClInclude Include="ceng\enums\cpu-feature-info.h" />
+    <ClInclude Include="ceng\enums\culling-mode.h" />
+    <ClInclude Include="ceng\enums\device-options.h" />
+    <ClInclude Include="ceng\enums\graphics-adapter-state.h" />
+    <ClInclude Include="ceng\enums\image-formats.h" />
+    <ClInclude Include="ceng\enums\keyboard-key.h" />
+    <ClInclude Include="ceng\enums\mode-scaling.h" />
+    <ClInclude Include="ceng\enums\multisample-type.h" />
+    <ClInclude Include="ceng\enums\present-options.h" />
+    <ClInclude Include="ceng\enums\primitive-type.h" />
+    <ClInclude Include="ceng\enums\renderer-type.h" />
+    <ClInclude Include="ceng\enums\resource-type.h" />
+    <ClInclude Include="ceng\enums\resource-usage.h" />
+    <ClInclude Include="ceng\enums\scanline-order.h" />
+    <ClInclude Include="ceng\enums\shader-datatype.h" />
+    <ClInclude Include="ceng\enums\shader-semantic.h" />
+    <ClInclude Include="ceng\enums\stencil-action.h" />
+    <ClInclude Include="ceng\enums\swap-chain-usage.h" />
+    <ClInclude Include="ceng\enums\swap-effect.h" />
+    <ClInclude Include="ceng\enums\swap-options.h" />
+    <ClInclude Include="ceng\enums\system-architecture.h" />
+    <ClInclude Include="ceng\enums\test-type.h" />
+    <ClInclude Include="ceng\enums\texture-address-mode.h" />
+    <ClInclude Include="ceng\enums\texture-filter.h" />
+    <ClInclude Include="ceng\enums\thread-priority.h" />
+    <ClInclude Include="ceng\enums\vtx-datatype.h" />
+    <ClInclude Include="ceng\enums\window-options.h" />
+    <ClInclude Include="ceng\enums\window-status.h" />
+    <ClInclude Include="ceng\interfaces\allocator.h" />
+    <ClInclude Include="ceng\interfaces\base-interface.h" />
+    <ClInclude Include="ceng\interfaces\depth-stencil-desc.h" />
+    <ClInclude Include="ceng\interfaces\display-mode.h" />
+    <ClInclude Include="ceng\interfaces\dynamic-library.h" />
+    <ClInclude Include="ceng\interfaces\graphics-2d.h" />
+    <ClInclude Include="ceng\interfaces\graphics-adapter.h" />
+    <ClInclude Include="ceng\interfaces\graphics-system.h" />
+    <ClInclude Include="ceng\interfaces\image-buffer.h" />
+    <ClInclude Include="ceng\interfaces\pixel-shader.h" />
+    <ClInclude Include="ceng\interfaces\rasterizer-state.h" />
+    <ClInclude Include="ceng\interfaces\render-context.h" />
+    <ClInclude Include="ceng\interfaces\render-device.h" />
+    <ClInclude Include="ceng\interfaces\render-enums.h" />
+    <ClInclude Include="ceng\interfaces\render-resource.h" />
+    <ClInclude Include="ceng\interfaces\render-target.h" />
+    <ClInclude Include="ceng\interfaces\sampler-state.h" />
+    <ClInclude Include="ceng\interfaces\shader-const.h" />
+    <ClInclude Include="ceng\interfaces\shader-resource-view.h" />
+    <ClInclude Include="ceng\interfaces\swap-chain.h" />
+    <ClInclude Include="ceng\interfaces\texture-2d.h" />
+    <ClInclude Include="ceng\interfaces\thread-task.h" />
+    <ClInclude Include="ceng\interfaces\vertex-buffer.h" />
+    <ClInclude Include="ceng\interfaces\vertex-decl.h" />
+    <ClInclude Include="ceng\interfaces\vertex-format.h" />
+    <ClInclude Include="ceng\interfaces\vertex-shader.h" />
+    <ClInclude Include="ceng\lib\liblog.h" />
+    <ClInclude Include="ceng\math\ce-matrix.h" />
+    <ClInclude Include="ceng\math\ce-quaternion.h" />
+    <ClInclude Include="ceng\math\ce-vector.h" />
+    <ClInclude Include="ceng\platform.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
