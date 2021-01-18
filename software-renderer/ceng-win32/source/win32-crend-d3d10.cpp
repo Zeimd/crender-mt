@@ -120,7 +120,6 @@ void ConceptRenderer_D3D10::Release()
 
 const CRESULT ConceptRenderer_D3D10::Initialize()
 {
-	HRESULT hr;
 
 	/*
 	hr = CreateDXGIFactory(__uuidof(IDXGIFactory),(void**)&dxgiFactory);
@@ -233,7 +232,7 @@ const CRESULT ConceptRenderer_D3D10::GetRenderDevice(GraphicsAdapter *adapter,
 	{
 		graphics2D = new Graphics2D_D3D10();
 	}
-	catch(std::bad_alloc &ba)
+	catch(std::bad_alloc&)
 	{
 		Clean();
 		return CE_ERR_OUT_OF_MEMORY;

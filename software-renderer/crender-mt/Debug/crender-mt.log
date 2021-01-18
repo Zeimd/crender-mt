@@ -1,1 +1,78 @@
-﻿
+﻿  stdafx.cpp
+  api-command.cpp
+  buffer-clear.cpp
+  buffer-factory.cpp
+  clipper-batch.cpp
+  clipper.cpp
+  cmd-clear-depth.cpp
+  cmd-clear-target.cpp
+  cmd-draw.cpp
+  cmd-flip-buffers.cpp
+  command-thread.cpp
+  cr-image-buffer.cpp
+  cr-pixel-shader.cpp
+  cr-resource.cpp
+  cr-sampler-state.cpp
+  cr-scene.cpp
+  cr-setup.cpp
+  cr-shader-const.cpp
+  cr-shader-view-tex2d.cpp
+  cr-swap-chain.cpp
+  cr-texture-2d.cpp
+  Generating Code...
+  Compiling...
+  cr-vertex-buffer.cpp
+  cr-vertex-format.cpp
+  cr-vertex-shader.cpp
+  crender-context.cpp
+  crender-mt.cpp
+  depth-test-port.cpp
+  draw-batch.cpp
+  fragment-format.cpp
+  locking-queue.cpp
+  locking-stage.cpp
+  locking-task.cpp
+  pipeline-batch.cpp
+  pipeline-stage.cpp
+  pipeline.cpp
+  pshader-input.cpp
+  pshader-instance.cpp
+  pshader-output.cpp
+  pshader-wrapper.cpp
+  quad-format.cpp
+  ras-coverage-test.cpp
+  Generating Code...
+  Compiling...
+  rasterizer-batch.cpp
+  rasterizer-setup.cpp
+  rasterizer-work.cpp
+  render-state.cpp
+  render-thread.cpp
+  rendertarget-cr.cpp
+  rtarget-buffer-swap.cpp
+  rtarget-clear.cpp
+  rtarget-data.cpp
+  rtarget-depth-test.cpp
+  crender-pshader.cpp
+  setup-vertex.cpp
+  shader-float4.cpp
+  shader-link.cpp
+  task-clipper.cpp
+  task-pshader.cpp
+  task-rasterizer.cpp
+  task-triangle-setup.cpp
+  texture-unit.cpp
+  triangle-batch.cpp
+  Generating Code...
+  Compiling...
+  vshader-input.cpp
+  vshader-instance.cpp
+  vshader-output.cpp
+  vshader-wrapper.cpp
+  Generating Code...
+  dllmain.cpp
+     Creating library C:\Users\Zeimd\Documents\Projektit\crender-mt\software-renderer\\lib\Debug\crender-mt-debug.lib and object C:\Users\Zeimd\Documents\Projektit\crender-mt\software-renderer\\lib\Debug\crender-mt-debug.exp
+  crender-mt.vcxproj -> C:\Users\Zeimd\Documents\Projektit\crender-mt\software-renderer\\lib\Debug\crender-mt-debug.dll
+  C:\Users\Zeimd\Documents\Projektit\crender-mt\software-renderer\\lib\Debug\ceng-platform-debug.dll
+  C:\Users\Zeimd\Documents\Projektit\crender-mt\software-renderer\\lib\Debug\crender-mt-debug.dll
+          2 file(s) copied.

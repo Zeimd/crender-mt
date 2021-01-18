@@ -122,8 +122,6 @@ const Ceng::INT32 CR_Rasterizer::RasterizeTriangle(std::vector<Task_PixelShader*
 	quadStep_tileBack[2].pixel[2] = triangle->quadStepTileBack[2];
 	quadStep_tileBack[2].pixel[3] = triangle->quadStepTileBack[2];
 
-	INT32 k,j;
-
 	_declspec(align(16)) VectorF4 temp_packedZ,temp_packedW;
 
 	_declspec(align(16)) VectorF4 temp_packedZ_dx,
@@ -151,14 +149,12 @@ const Ceng::INT32 CR_Rasterizer::RasterizeTriangle(std::vector<Task_PixelShader*
 
 	UINT32 chainCoverage[4][4];
 
-	UINT32 i;
-
 	//****************************************************************
 	// Build scissor mask
 
 	// TODO: Create these when a new scissor rect is set
 
-	UINT64 scissorMask[9] = {-1,-1,-1,-1,-1,-1,-1,-1,-1};
+	INT64 scissorMask[9] = {-1LL,-1LL,-1LL,-1LL,-1LL,-1LL,-1LL,-1LL,-1LL};
 
 	//UINT64 scissorMask[9] = {0,0,0,0,-1,0,0,0,0};
 	
@@ -166,9 +162,9 @@ const Ceng::INT32 CR_Rasterizer::RasterizeTriangle(std::vector<Task_PixelShader*
 	{
 			scissorMask[0] = 0;
 
-			for(k=(scissorRect->top & 7); k<8;k++)
+			for(Ceng::INT32 k=(scissorRect->top & 7); k<8;k++)
 			{
-				for(j=(scissorRect->left & 7); j<8;j++)
+				for(Ceng::INT32 j=(scissorRect->left & 7); j<8;j++)
 				{
 					INT32 index = 16*(k>>1) + 4*(j>>1) + (j&1) + 2*(k&1);
 
@@ -181,9 +177,9 @@ const Ceng::INT32 CR_Rasterizer::RasterizeTriangle(std::vector<Task_PixelShader*
 	{
 		scissorMask[1] = 0;
 
-		for(k=(scissorRect->top & 7); k<8;k++)
+		for(Ceng::INT32 k=(scissorRect->top & 7); k<8;k++)
 		{
-			for(j=0; j<8;j++)
+			for(Ceng::INT32 j=0; j<8;j++)
 			{
 				INT32 index = 16*(k>>1) + 4*(j>>1) + (j&1) + 2*(k&1);
 
@@ -200,9 +196,9 @@ const Ceng::INT32 CR_Rasterizer::RasterizeTriangle(std::vector<Task_PixelShader*
 
 		if (hMax == 0) hMax = 8;
 
-		for(k=(scissorRect->top & 7); k<8;k++)
+		for(Ceng::INT32 k=(scissorRect->top & 7); k<8;k++)
 		{
-			for(j=0; j < hMax; j++)
+			for(Ceng::INT32 j=0; j < hMax; j++)
 			{
 				INT32 index = 16*(k>>1) + 4*(j>>1) + (j&1) + 2*(k&1);
 
@@ -215,9 +211,9 @@ const Ceng::INT32 CR_Rasterizer::RasterizeTriangle(std::vector<Task_PixelShader*
 	{
 		scissorMask[3] = 0;
 
-		for(k=0; k<8;k++)
+		for(Ceng::INT32 k=0; k<8;k++)
 		{
-			for(j=(scissorRect->left & 7);j<8;j++)
+			for(Ceng::INT32 j=(scissorRect->left & 7);j<8;j++)
 			{
 				INT32 index = 16*(k>>1) + 4*(j>>1) + (j&1) + 2*(k&1);
 
@@ -230,9 +226,9 @@ const Ceng::INT32 CR_Rasterizer::RasterizeTriangle(std::vector<Task_PixelShader*
 	{
 		scissorMask[5] = 0;
 
-		for(k=0;k<8;k++)
+		for(Ceng::INT32 k=0;k<8;k++)
 		{
-			for(j=0;j<(scissorRect->right & 7);j++)
+			for(Ceng::INT32 j=0;j<(scissorRect->right & 7);j++)
 			{
 				INT32 index = 16*(k>>1) + 4*(j>>1) + (j&1) + 2*(k&1);
 
@@ -249,9 +245,9 @@ const Ceng::INT32 CR_Rasterizer::RasterizeTriangle(std::vector<Task_PixelShader*
 
 		if (hMax == 0) hMax = 8;
 
-		for(k=0; k < hMax; k++)
+		for(Ceng::INT32 k=0; k < hMax; k++)
 		{
-			for(j=(scissorRect->left & 7); j<8;j++)
+			for(Ceng::INT32 j=(scissorRect->left & 7); j<8;j++)
 			{
 				INT32 index = 16*(k>>1) + 4*(j>>1) + (j&1) + 2*(k&1);
 
@@ -264,9 +260,9 @@ const Ceng::INT32 CR_Rasterizer::RasterizeTriangle(std::vector<Task_PixelShader*
 	{
 		scissorMask[7] = 0;
 
-		for(k=0;k<(scissorRect->bottom & 7);k++)
+		for(Ceng::INT32 k=0;k<(scissorRect->bottom & 7);k++)
 		{
-			for(j=0; j<8;j++)
+			for(Ceng::INT32 j=0; j<8;j++)
 			{
 				INT32 index = 16*(k>>1) + 4*(j>>1) + (j&1) + 2*(k&1);
 
@@ -285,9 +281,9 @@ const Ceng::INT32 CR_Rasterizer::RasterizeTriangle(std::vector<Task_PixelShader*
 		INT32 hMax = scissorRect->right & 7;
 		if (hMax == 0) hMax = 8;
 
-		for(k=0; k < vMax; k++)
+		for(Ceng::INT32 k=0; k < vMax; k++)
 		{
-			for(j=0; j < hMax; j++)
+			for(Ceng::INT32 j=0; j < hMax; j++)
 			{
 				INT32 index = 16*(k>>1) + 4*(j>>1) + (j&1) + 2*(k&1);
 
@@ -300,17 +296,17 @@ const Ceng::INT32 CR_Rasterizer::RasterizeTriangle(std::vector<Task_PixelShader*
 	
 	depthBuffer = outputs[0]->rasterizerBatch->renderState->depthBuffer.get();
 
-	Ceng::UINT32 xMin = outputs[0]->rasterizerBatch->xMin;
-	Ceng::UINT32 yMin = outputs[0]->rasterizerBatch->yMin;
+	Ceng::INT32 xMin = outputs[0]->rasterizerBatch->xMin;
+	Ceng::INT32 yMin = outputs[0]->rasterizerBatch->yMin;
 	
-	Ceng::UINT32 xMax = outputs[0]->rasterizerBatch->xMax;
-	Ceng::UINT32 yMax = outputs[0]->rasterizerBatch->yMax;
+	Ceng::INT32 xMax = outputs[0]->rasterizerBatch->xMax;
+	Ceng::INT32 yMax = outputs[0]->rasterizerBatch->yMax;
 	
 	// Test tiles within the bounding box for triangle overlap
 
-	for(k=yMin;k<yMax;k+=8)
+	for(Ceng::INT32 k=yMin;k<yMax;k+=8)
 	{
-		for(i=0;i<4;i++)
+		for(Ceng::UINT32 i=0;i<4;i++)
 		{
 			chainStart[i] = -1;			
 			chainEnd[i] = -1;
@@ -323,7 +319,7 @@ const Ceng::INT32 CR_Rasterizer::RasterizeTriangle(std::vector<Task_PixelShader*
 			chainCoverage[i][3] = 0;
 		}
 
-		for(j=xMin;j<xMax;j+=8)
+		for(Ceng::INT32 j=xMin;j<xMax;j+=8)
 		{
 			// Trivial reject test
 
@@ -334,7 +330,7 @@ const Ceng::INT32 CR_Rasterizer::RasterizeTriangle(std::vector<Task_PixelShader*
 			{
 				// Flush active chains
 				
-				for(i=0;i<4;i++)
+				for(Ceng::UINT32 i=0;i<4;i++)
 				{
 					if (chainStart[i] != -1)
 					{
@@ -444,7 +440,7 @@ const Ceng::INT32 CR_Rasterizer::RasterizeTriangle(std::vector<Task_PixelShader*
 				//***************************************
 				// Tile is completely covered by triangle
 
-				for(i=0;i<4;i++)
+				for(Ceng::UINT32 i=0;i<4;i++)
 				{
 					// Flush any partial chains
 					
@@ -502,7 +498,7 @@ const Ceng::INT32 CR_Rasterizer::RasterizeTriangle(std::vector<Task_PixelShader*
 
 				// Examine each row of quads within the tile
 
-				for(i=0;i<4;i++)
+				for(Ceng::UINT32 i=0;i<4;i++)
 				{
 				
 					INT32 start=0;
@@ -718,7 +714,7 @@ const Ceng::INT32 CR_Rasterizer::RasterizeTriangle(std::vector<Task_PixelShader*
 		quadEdgeValue[2].pixel[3] += triangle->tile.toNextRow[2];
 
 		// Generate current chains
-		for(i=0;i<4;i++)
+		for(Ceng::UINT32 i=0;i<4;i++)
 		{
 			if (chainType[i] != -1)
 			{

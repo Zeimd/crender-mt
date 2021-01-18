@@ -120,7 +120,7 @@ namespace Ceng
 	protected:
 
 		Ceng::FLOAT32 depth;
-		Ceng::FLOAT32 stencil;
+		Ceng::UINT32 stencil;
 
 	public:
 		Cmd_ClearDepthStencil();

@@ -128,9 +128,6 @@ const CRESULT CR_Texture2D::SuperSampleDown(std::shared_ptr<CR_NewTargetData> &s
 	Ceng::UINT32 halfWidth = newWidth >> 1;
 	Ceng::UINT32 halfHeight = newHeight >> 1;
 
-	Ceng::UINT8 red, green, blue;
-	Ceng::UINT32 color;
-
 	Ceng::UINT8 *sourcePtr = (Ceng::UINT8*)source->baseAddress;
 
 	Ceng::UINT32 bytesPerPixel = source->bytesPerPixel;
@@ -370,13 +367,11 @@ void CR_Texture2D::SuperSampleHorizontal(Ceng::UINT8 *destScanline,const Ceng::U
 	Ceng::UINT8 *sourceScanline,const Ceng::UINT32 sourcePitch, 
 	const Ceng::UINT32 bytesPerPixel,const Ceng::UINT32 xStart, const Ceng::UINT32 xEnd, const Ceng::UINT32 y)
 {
-	Ceng::INT32 j;
-
 	Ceng::UINT32 red,green,blue,alpha;
 
 	Ceng::UINT32 doubleBytes = 2 * bytesPerPixel;
 
-	for (j = xStart; j<xEnd; j++)
+	for (Ceng::UINT32 j = xStart; j<xEnd; j++)
 	{
 		blue = sourceScanline[2 * sourcePitch*y + doubleBytes * j];
 		green = sourceScanline[2 * sourcePitch*y + doubleBytes * j+1];
@@ -414,13 +409,11 @@ void CR_Texture2D::SuperSampleHorizontalOdd(Ceng::UINT8 *destScanline, const Cen
 	Ceng::UINT8 *sourceScanline, const Ceng::UINT32 sourcePitch,
 	const Ceng::UINT32 bytesPerPixel, const Ceng::UINT32 xStart, const Ceng::UINT32 xEnd, const Ceng::UINT32 y)
 {
-	Ceng::INT32 j;
-
 	Ceng::UINT32 red, green, blue,alpha;
 
 	Ceng::UINT32 doubleBytes = 2 * bytesPerPixel;
 
-	for (j = xStart; j<xEnd; j++)
+	for (Ceng::UINT32 j = xStart; j<xEnd; j++)
 	{
 		blue = sourceScanline[2 * sourcePitch*y + doubleBytes * j];
 		green = sourceScanline[2 * sourcePitch*y + doubleBytes * j + 1];

@@ -28,7 +28,7 @@ extern "C" __declspec(dllexport) int GetRenderDevice(Ceng::CPU_Info *cpuInfo,
 	{
 		temp = new Ceng::ConceptRenderer();
 	}
-	catch (std::bad_alloc &ba)
+	catch (std::bad_alloc&)
 	{
 		return -1;
 	}

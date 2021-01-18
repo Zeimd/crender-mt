@@ -91,7 +91,7 @@ const Ceng::CRESULT CR_SwapChain::GetFrameBufferTarget(Ceng::RenderTarget **rend
 	{
 		newTarget = new CR_RenderTarget(backBuffer);
 	}
-	catch (std::bad_alloc &ba)
+	catch (std::bad_alloc&)
 	{
 		return CE_ERR_OUT_OF_MEMORY;
 	}

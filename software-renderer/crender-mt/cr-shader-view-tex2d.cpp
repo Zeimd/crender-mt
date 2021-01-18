@@ -602,7 +602,11 @@ void CR_ShaderViewTex2D::Nearest_SSE2(const Ceng::INT32 *uFX, const Ceng::INT32 
 	// Only works for textures with rowBytes < 65536. 
 	// This means a maximum width of 4096 for a float32 argb texture.
 
-	Ceng::UINT16 dimScale[2] = { textures[mipLevel]->bufferWidth, textures[mipLevel]->bufferHeight };
+	Ceng::UINT16 dimScale[2] = 
+	{
+		Ceng::UINT16(textures[mipLevel]->bufferWidth), 
+		Ceng::UINT16(textures[mipLevel]->bufferHeight) 
+	};
 
 	// Scale uv by texture dimension and convert to integer
 
@@ -952,7 +956,12 @@ void CR_ShaderViewTex2D::Linear_SSE2(const Ceng::INT32 *uFX, const Ceng::INT32 *
 
 	// Width and height are scaled by 2 to produce correct result during fused multiply-add
 	_declspec(align(8)) Ceng::UINT16 dimScale[4] =
-	{ 1, textures[mipLevel]->bufferWidth << 1, 1, textures[mipLevel]->bufferHeight << 1 };
+	{ 
+		1, 
+		Ceng::UINT16(textures[mipLevel]->bufferWidth << 1), 
+		1, 
+		Ceng::UINT16(textures[mipLevel]->bufferHeight << 1) 
+	};
 
 	Ceng::INT16 truncate[2] = { -32768, 0 };
 
@@ -1253,10 +1262,6 @@ void CR_ShaderViewTex2D::Linear_SSE2(const Ceng::INT32 *uFX, const Ceng::INT32 *
 	//__m128i allZeroes = _mm_setzero_si128();
 
 	__m128i finalColor[2] = { _mm_setzero_si128(), _mm_setzero_si128() };
-
-	__m128i weight;
-	__m128i color,reader;
-
 	////////////////////////////////////////////////////////
 	// Top-left fetch
 

@@ -368,7 +368,7 @@ const CRESULT ConceptRenderer_D3D9::GetRenderDevice(GraphicsAdapter *adapter,
 	{
 		graphics2D = new Graphics2D_D3D9();
 	}
-	catch(std::bad_alloc &ba)
+	catch(std::bad_alloc&)
 	{
 		//Ceng::Log::Print("\tError : Failed to create output object\n");
 

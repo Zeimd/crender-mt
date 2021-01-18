@@ -25,11 +25,9 @@ CRESULT CR_FragmentFormat::LinkSemantics(std::vector<CR_vsOutputSemantic> &linke
 										 std::vector<CR_vsOutputSemantic> &vshaderOut,
 										 std::vector<CR_PixelShaderSemantic> &pshaderIn)
 {
-	INT32 k,j;
-
 	Log::Print("FragmentFormat.LinkSemantics : method start");
 
-	for(k=0;k<vshaderOut.size();k++)
+	for(size_t k=0;k<vshaderOut.size();k++)
 	{
 		if (vshaderOut[k].semantic == Ceng::SHADER_SEMANTIC::POSITION)
 		{
@@ -37,7 +35,7 @@ CRESULT CR_FragmentFormat::LinkSemantics(std::vector<CR_vsOutputSemantic> &linke
 			continue;
 		}
 		
-		for(j=0;j<pshaderIn.size();j++)
+		for(size_t j=0;j<pshaderIn.size();j++)
 		{
 			if (pshaderIn[j].semantic == Ceng::SHADER_SEMANTIC::POSITION)
 			{
@@ -53,7 +51,7 @@ CRESULT CR_FragmentFormat::LinkSemantics(std::vector<CR_vsOutputSemantic> &linke
 				{
 					linkedSemantics.push_back(vshaderOut[k]);
 				}
-				catch(std::bad_alloc &ba)
+				catch(std::bad_alloc&)
 				{
 					return CE_ERR_OUT_OF_MEMORY;
 				}
@@ -93,8 +91,6 @@ void CR_FragmentFormat::Reset()
 CRESULT CR_FragmentFormat::Configure(std::vector<CR_vsOutputSemantic> &vshaderOut,
 									 std::vector<CR_PixelShaderSemantic> &pshaderIn)
 {
-	INT32 k,j;
-
 	//************************
 	// Select vertex shader output semantics that are consumed by pixel shader
 
@@ -120,7 +116,7 @@ CRESULT CR_FragmentFormat::Configure(std::vector<CR_vsOutputSemantic> &vshaderOu
 	//*************************************
 	// Find POSITION-semantic and place it first
 
-	for(k=0;k<linkedSemantic.size();k++)
+	for(size_t k=0;k<linkedSemantic.size();k++)
 	{
 		if (vshaderOut[k].semantic == Ceng::SHADER_SEMANTIC::POSITION)
 		{
@@ -193,7 +189,7 @@ CRESULT CR_FragmentFormat::Configure(std::vector<CR_vsOutputSemantic> &vshaderOu
 
 	String temp;
 
-	for(k=0;k<variables.size();k++)
+	for(size_t k=0;k<variables.size();k++)
 	{
 		temp = variables[k].offset;
 

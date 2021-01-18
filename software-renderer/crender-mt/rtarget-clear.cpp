@@ -99,7 +99,7 @@ CRESULT CR_NewTargetData::ClearTarget(const CE_Color &color,const Ceng::Rectangl
 	INT32 yFullStart = (localRect.top + 1) >> 1;
 	INT32 yFullEnd = localRect.bottom >> 1;
 
-	UINT32 k,j;
+	INT32 k,j;
 
 	UINT32 *colorAddress;
 	UINT8 *partialWrite;
@@ -254,11 +254,11 @@ CRESULT CR_NewTargetData::ClearTarget(const CE_Color &color,const Ceng::Rectangl
 		
 CRESULT CR_NewTargetData::ClearDepth(const FLOAT32 depth)
 {
-	UINT32 k,j,pixel,channel;
+	UINT32 k, j;
 
 	POINTER depthAddress;
 
-	UINT32 *depthTarget;
+	//UINT32 *depthTarget;
 
 	UINT32 depthVecs = channels[0].linearBytes >> 4;
 
@@ -406,12 +406,12 @@ CRESULT CR_NewTargetData::ClearDepthStencil(const Ceng::FLOAT32 depth,const Ceng
 		stencilEnabled = true;
 	}
 
-	UINT32 k,j,pixel,channel;
+	UINT32 k, j;// , pixel, channel;
 
 	POINTER depthAddress;
 
-	UINT32 *depthTarget;
-	UINT32 *stencilTarget;
+	//UINT32 *depthTarget;
+	//UINT32 *stencilTarget;
 
 	UINT32 depthVecs = channels[0].linearBytes >> 4;
 	UINT32 stencilVecs = channels[1].linearBytes >> 4;

@@ -9,6 +9,7 @@
 #include <memory>
 
 #include <Windows.h>
+#include <intrin.h>
 
 #include "../include/ceng-win32.h"
 

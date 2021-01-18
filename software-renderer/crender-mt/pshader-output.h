@@ -156,27 +156,27 @@ namespace Ceng
 			_declspec(align(16)) Ceng::UINT8 writeBuffer[16];
 
 			// blue
-			writeBuffer[0] = 255.0f*source.x;
-			writeBuffer[1] = 255.0f*source.x;
-			writeBuffer[2] = 255.0f*source.x;
-			writeBuffer[3] = 255.0f*source.x;
+			writeBuffer[0] = Ceng::UINT8(255.0f*source.x);
+			writeBuffer[1] = Ceng::UINT8(255.0f*source.x);
+			writeBuffer[2] = Ceng::UINT8(255.0f*source.x);
+			writeBuffer[3] = Ceng::UINT8(255.0f*source.x);
 
 			// green
-			writeBuffer[4] = 255.0f*source.y;
-			writeBuffer[5] = 255.0f*source.y;
-			writeBuffer[6] = 255.0f*source.y;
-			writeBuffer[7] = 255.0f*source.y;
+			writeBuffer[4] = Ceng::UINT8(255.0f*source.y);
+			writeBuffer[5] = Ceng::UINT8(255.0f*source.y);
+			writeBuffer[6] = Ceng::UINT8(255.0f*source.y);
+			writeBuffer[7] = Ceng::UINT8(255.0f*source.y);
 
 			// red
-			writeBuffer[8] = 255.0f*source.z;
-			writeBuffer[9] = 255.0f*source.z;
-			writeBuffer[10] = 255.0f*source.z;
-			writeBuffer[11] = 255.0f*source.z;
+			writeBuffer[8] = Ceng::UINT8(255.0f*source.z);
+			writeBuffer[9] = Ceng::UINT8(255.0f*source.z);
+			writeBuffer[10] = Ceng::UINT8(255.0f*source.z);
+			writeBuffer[11] = Ceng::UINT8(255.0f*source.z);
 
-			writeBuffer[12] = 255.0f*source.w;
-			writeBuffer[13] = 255.0f*source.w;
-			writeBuffer[14] = 255.0f*source.w;
-			writeBuffer[15] = 255.0f*source.w;
+			writeBuffer[12] = Ceng::UINT8(255.0f*source.w);
+			writeBuffer[13] = Ceng::UINT8(255.0f*source.w);
+			writeBuffer[14] = Ceng::UINT8(255.0f*source.w);
+			writeBuffer[15] = Ceng::UINT8(255.0f*source.w);
 
 			// Source is ubyte4
 

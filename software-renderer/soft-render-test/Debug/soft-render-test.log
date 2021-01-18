@@ -1,1 +1,9 @@
-﻿
+﻿  eng-actor.cpp
+  eng-camera.cpp
+  eng-mesh.cpp
+  eng-object.cpp
+  engine-v2.cpp
+  image-format-string.cpp
+  image-loader.cpp
+  Generating Code...
+  soft-render-test.vcxproj -> C:\Users\Zeimd\Documents\Projektit\crender-mt\software-renderer\\bin\soft-render-test-debug.exe

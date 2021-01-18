@@ -679,8 +679,6 @@ void CR_NewTargetData::DepthStencilTestTile(const Ceng::UINT32 tileSize,const Ce
 	Ceng::TEST_TYPE::value stencilTest;
 	
 	Ceng::STENCIL_ACTION::value stencilFailFunc,depthFailFunc,depthPassFunc;
-	Ceng::STENCIL_ACTION::value action;
-	
 	
 	UINT8 stencilRef,compareRef;
 	UINT8 stencilReadMask,stencilWriteMask;

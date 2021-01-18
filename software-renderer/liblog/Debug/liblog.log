@@ -1,1 +1,7 @@
-﻿
+﻿  console-log.cpp
+  filelog.cpp
+  log.cpp
+  logtype.cpp
+  Generating Code...
+  liblog.vcxproj -> C:\Users\Zeimd\Documents\Projektit\crender-mt\software-renderer\\lib\Debug\liblog.lib
+          1 file(s) copied.

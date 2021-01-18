@@ -12,6 +12,8 @@
 *
 *****************************************************************************/
 
+#include <immintrin.h>
+
 #include "vshader-output.h"
 
 using namespace Ceng;

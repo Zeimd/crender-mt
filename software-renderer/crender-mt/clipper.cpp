@@ -92,8 +92,6 @@ const CRESULT CR_Clipper::HomogeneousClipTriangle(CR_PrimitiveData &primitive,
 
 	VectorF4 delta;
 	
-	INT32 k;
-
 	//******************************************
 	// Construct input pointer array
 
@@ -116,7 +114,7 @@ const CRESULT CR_Clipper::HomogeneousClipTriangle(CR_PrimitiveData &primitive,
 
 	const FLOAT32 epsilonW = 0.0001f;
 
-	for(k=0;k<3;k++)
+	for(Ceng::UINT32 k=0;k<3;k++)
 	{
 		currentPos = (VectorF4*)vertexIn[k];
 		
@@ -573,7 +571,7 @@ const CRESULT CR_Clipper::HomogeneousClipTriangle(CR_PrimitiveData &primitive,
 	outPrimitive.primitiveType = PRIMITIVE_TYPE::TRIANGLE_LIST;
 	outPrimitive.fragmentPtr[0] = finalOutput[0];
 
-	for(k=0;k<triangles;k++)
+	for(Ceng::UINT32 k=0;k<triangles;k++)
 	{
 		outPrimitive.fragmentPtr[1] = finalOutput[k+1];
 		outPrimitive.fragmentPtr[2] = finalOutput[k+2];
@@ -648,9 +646,7 @@ const Ceng::UINT32 CR_Clipper::ClipEdgeAgainstMinimum(Ceng::UINT8 *startVertex,
 
 	VectorF4 delta;
 
-	UINT32 k;
-
-	for(k=0;k<shaderLink->fragmentFormat.floatBlocks;k++)
+	for(Ceng::UINT32 k=0;k<shaderLink->fragmentFormat.floatBlocks;k++)
 	{
 		delta = endVariable[k] - startVariable[k];
 		delta *= transportFactor;
@@ -724,9 +720,7 @@ const Ceng::UINT32 CR_Clipper::ClipEdgeAgainstMaximum(Ceng::UINT8 *startVertex,
 
 	VectorF4 delta;
 
-	UINT32 k;
-
-	for(k=0;k<shaderLink->fragmentFormat.floatBlocks;k++)
+	for(Ceng::UINT32 k=0;k<shaderLink->fragmentFormat.floatBlocks;k++)
 	{
 		delta = endVariable[k] - startVariable[k];
 		delta *= transportFactor;

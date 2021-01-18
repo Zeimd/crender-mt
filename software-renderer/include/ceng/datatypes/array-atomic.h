@@ -51,7 +51,7 @@ namespace Ceng
 	}
 
 	template<class t_ElemType>
-	ArrayAtomic<t_ElemType>::ArrayAtomic(const Ceng::UINT32 size,const t_ElemType &value=t_ElemType())
+	ArrayAtomic<t_ElemType>::ArrayAtomic(const Ceng::UINT32 size,const t_ElemType &value)
 		: size(size)
 	{
 		buffer = new std::atomic<t_ElemType>[size];

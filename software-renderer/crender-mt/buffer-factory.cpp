@@ -92,8 +92,6 @@ CRESULT CR_BufferFactory::GetRenderTarget(Ceng::UINT32 startWidth,
 	{
 		bytesPerPixel += channels[k].bytesPerPixel;
 	}
-
-	UINT32 blockSize;
 	
 	UINT32 tileWidth,tileHeight;
 
@@ -301,7 +299,7 @@ CRESULT CR_BufferFactory::GetRenderTarget(Ceng::UINT32 startWidth,
 	{
 		targetData = new CR_NewTargetData();
 	}
-	catch(std::bad_alloc &ba)
+	catch(std::bad_alloc&)
 	{
 		free(allocPtr);
 		return CE_ERR_OUT_OF_MEMORY;
@@ -460,8 +458,6 @@ CRESULT CR_BufferFactory::GetRenderTarget(Ceng::UINT32 startWidth,
 const CRESULT CR_BufferFactory::GetTexture2D(const Texture2dDesc &desc,
 	CR_NewTargetData **texturePtr)
 {
-	CRESULT cresult;
-
 	return GetRenderTarget(desc.width, desc.height, desc.width, desc.height,
 		desc.format, BUFFER_TILING::SCANLINES, 0, 0, texturePtr);
 }
@@ -469,8 +465,6 @@ const CRESULT CR_BufferFactory::GetTexture2D(const Texture2dDesc &desc,
 const CRESULT CR_BufferFactory::GetTiledTexture2D(const Texture2dDesc &desc,
 	CR_NewTargetData **texturePtr)
 {
-	CRESULT cresult;
-
 	return GetRenderTarget(desc.width, desc.height, desc.width, desc.height,
 		desc.format, BUFFER_TILING::TILED4, 0, 0, texturePtr);
 	

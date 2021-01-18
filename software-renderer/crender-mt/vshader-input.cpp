@@ -12,6 +12,7 @@
 *
 *****************************************************************************/
 
+#include <immintrin.h>
 #include "vshader-input.h"
 
 using namespace Ceng;

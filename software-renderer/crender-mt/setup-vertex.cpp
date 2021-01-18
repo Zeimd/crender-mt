@@ -31,7 +31,6 @@ CRESULT ConceptRenderer::CreateVertexFormat(const std::vector<Ceng::VertexDeclDa
 
 	
 	UINT32 size = 0;
-	INT32 k = 0;
 
 	if (vertexDecl.size() == 0)
 	{
@@ -41,6 +40,8 @@ CRESULT ConceptRenderer::CreateVertexFormat(const std::vector<Ceng::VertexDeclDa
 
 	// Count variables, but interrupt immediately if
 	// an invalid value is encountered
+
+	size_t k;
 
 	for(k=0;k<vertexDecl.size();k++)
 	{
@@ -73,7 +74,7 @@ CRESULT ConceptRenderer::CreateVertexFormat(const std::vector<Ceng::VertexDeclDa
 	{
 		formatPtr = new CR_VertexFormat();
 	}
-	catch (std::bad_alloc &ba)
+	catch (std::bad_alloc&)
 	{
 		Log::Print("CreateVertexFormat : Error : failed to create format object");
 		return CE_ERR_OUT_OF_MEMORY;
@@ -90,7 +91,7 @@ CRESULT ConceptRenderer::CreateVertexFormat(const std::vector<Ceng::VertexDeclDa
 
 	formatPtr->sizeBytes = 0;
 
-	for(k=0;k<variableCount;k++)
+	for(size_t k=0;k<variableCount;k++)
 	{
 		// Check that variables from the same stream don't
 		// overlap
@@ -128,7 +129,7 @@ CRESULT ConceptRenderer::CreateVertexFormat(const std::vector<Ceng::VertexDeclDa
 		{
 			formatPtr->variables.push_back(tempVariable);
 		}
-		catch(std::bad_alloc &ba)
+		catch(std::bad_alloc&)
 		{
 			Log::Print("CreateVertexFormat : failed to allocate variable");
 
@@ -283,7 +284,7 @@ CRESULT ConceptRenderer::CreateVertexBuffer(Ceng::UINT32 vertexSizeBytes,
 		vertexBuffer = new CR_VertexBuffer(allocPtr,vertexSizeBytes,
 											vertexNum);
 	}
-	catch(std::bad_alloc &ba)
+	catch(std::bad_alloc&)
 	{
 		Log::Print("CreateVertexBuffer : failed to create buffer");
 		AlignedFree(allocPtr);
@@ -404,7 +405,7 @@ CRESULT ConceptRenderer::CreateVertexShader(Ceng::VertexShader **shaderPtr)
 	{
 		vertexShader = new CR_VertexShader();
 	}
-	catch (std::bad_alloc &ba)
+	catch (std::bad_alloc&)
 	{
 		return CE_ERR_OUT_OF_MEMORY;
 	}

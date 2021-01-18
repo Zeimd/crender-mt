@@ -42,7 +42,7 @@ const Ceng::CRESULT CreateTexture2d_BMP(const Ceng::StringUtf8 &file, Ceng::Text
 {
 	FILE *stream;
 	Ceng::UINT8 buffer[16];
-	Ceng::INT32 k, j, i;
+	Ceng::INT32 k;
 	Ceng::BOOL windowsbitmap = false;
 
 	Ceng::UINT32 filesize = 0;
@@ -57,8 +57,8 @@ const Ceng::CRESULT CreateTexture2d_BMP(const Ceng::StringUtf8 &file, Ceng::Text
 	Ceng::UINT16 colordepthBits = 0;
 	Ceng::UINT32 paletteSize = 0;
 
-	stream = fopen(file.ToCString(), "rb");
-	if (stream == NULL)
+	errno_t result = fopen_s(&stream, file.ToCString(), "rb");
+	if (result != 0)
 	{
 		return Ceng::CE_ERR_INVALID_PARAM;
 	}

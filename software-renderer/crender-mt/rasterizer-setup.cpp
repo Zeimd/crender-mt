@@ -209,14 +209,14 @@ const CRESULT CR_Rasterizer::TriangleSetup(CR_PrimitiveData &primitive,
 	// NOTE: Also rounds positive and negative values in the same
 	//       direction
 
-	vx[0] = floor(position[0].x * SUBPIXEL_SCALE);
-	vy[0] = floor(position[0].y * SUBPIXEL_SCALE);
+	vx[0] = Ceng::INT32(floor(position[0].x * SUBPIXEL_SCALE));
+	vy[0] = Ceng::INT32(floor(position[0].y * SUBPIXEL_SCALE));
 	
-	vx[1] = floor(position[1].x * SUBPIXEL_SCALE);
-	vy[1] = floor(position[1].y * SUBPIXEL_SCALE);
+	vx[1] = Ceng::INT32(floor(position[1].x * SUBPIXEL_SCALE));
+	vy[1] = Ceng::INT32(floor(position[1].y * SUBPIXEL_SCALE));
 	
-	vx[2] = floor(position[2].x * SUBPIXEL_SCALE);
-	vy[2] = floor(position[2].y * SUBPIXEL_SCALE);
+	vx[2] = Ceng::INT32(floor(position[2].x * SUBPIXEL_SCALE));
+	vy[2] = Ceng::INT32(floor(position[2].y * SUBPIXEL_SCALE));
 
 	//***************************************************
 	// Front-/backface culling
@@ -332,8 +332,8 @@ const CRESULT CR_Rasterizer::TriangleSetup(CR_PrimitiveData &primitive,
 	//***********************************************************************
 	// Calculate tile-padded bounding box in final coordinate system
 
-	INT32 halfWidth = ceil(FLOAT32(viewWidth) / FLOAT32(2.0f));
-	INT32 halfHeight = ceil(FLOAT32(viewHeight) / FLOAT32(2.0f)) ;
+	INT32 halfWidth = Ceng::INT32(ceil(FLOAT32(viewWidth) / FLOAT32(2.0f)));
+	INT32 halfHeight = Ceng::INT32(ceil(FLOAT32(viewHeight) / FLOAT32(2.0f)));
 
 	xMin += halfWidth;
 	xMax += halfWidth;

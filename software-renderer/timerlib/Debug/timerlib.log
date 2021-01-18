@@ -1,1 +1,4 @@
-﻿
+﻿  timerlib.CPP
+c:\users\zeimd\documents\projektit\crender-mt\software-renderer\timerlib\timerlib.cpp(14): warning C4244: '=': conversion from 'LONGLONG' to 'double', possible loss of data
+c:\users\zeimd\documents\projektit\crender-mt\software-renderer\timerlib\timerlib.cpp(15): warning C4244: '=': conversion from 'LONGLONG' to 'double', possible loss of data
+  timerlib.vcxproj -> C:\Users\Zeimd\Documents\Projektit\crender-mt\software-renderer\\lib\Debug\timerlib.lib

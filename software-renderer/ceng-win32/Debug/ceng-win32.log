@@ -1,1 +1,30 @@
-﻿
+﻿  stdafx.cpp
+  ceng-win32.cpp
+  cpu-x86.cpp
+  d3d9-adapter.cpp
+  d3d9-swap-chain.cpp
+  graphics-2d-d3d10.cpp
+  graphics-2d-d3d9.cpp
+  layer-win32.cpp
+  graphics-system.cpp
+  win32-cond-var.cpp
+  win32-crend-d3d10.cpp
+  win32-crend-d3d9.cpp
+  win32-crit-section.cpp
+  win32-d3d9.cpp
+  win32-dll.cpp
+  win32-keyboard.cpp
+  win32-mutex.cpp
+  win32-thread.cpp
+  win32-window.cpp
+  winproc-thunk.cpp
+  Generating Code...
+  dllmain.cpp
+     Creating library C:\Users\Zeimd\Documents\Projektit\crender-mt\software-renderer\\lib\Debug\ceng-platform-debug.lib and object C:\Users\Zeimd\Documents\Projektit\crender-mt\software-renderer\\lib\Debug\ceng-platform-debug.exp
+graphics-2d-d3d9.obj : warning LNK4217: locally defined symbol _Ceng_CreateThread imported in function "public: enum Ceng::CRESULT const __thiscall Ceng::Graphics2D_D3D9::ConfigureOutput(struct IDirect3DDevice9 *,struct _D3DPRESENT_PARAMETERS_ *)" (?ConfigureOutput@Graphics2D_D3D9@Ceng@@QAE?BW4CRESULT@2@PAUIDirect3DDevice9@@PAU_D3DPRESENT_PARAMETERS_@@@Z)
+graphics-2d-d3d9.obj : warning LNK4217: locally defined symbol _Ceng_CreateCriticalSection imported in function "public: enum Ceng::CRESULT const __thiscall Ceng::Graphics2D_D3D9::ConfigureOutput(struct IDirect3DDevice9 *,struct _D3DPRESENT_PARAMETERS_ *)" (?ConfigureOutput@Graphics2D_D3D9@Ceng@@QAE?BW4CRESULT@2@PAUIDirect3DDevice9@@PAU_D3DPRESENT_PARAMETERS_@@@Z)
+graphics-2d-d3d9.obj : warning LNK4217: locally defined symbol _Ceng_CreateConditionVar imported in function "public: enum Ceng::CRESULT const __thiscall Ceng::Graphics2D_D3D9::ConfigureOutput(struct IDirect3DDevice9 *,struct _D3DPRESENT_PARAMETERS_ *)" (?ConfigureOutput@Graphics2D_D3D9@Ceng@@QAE?BW4CRESULT@2@PAUIDirect3DDevice9@@PAU_D3DPRESENT_PARAMETERS_@@@Z)
+  ceng-win32.vcxproj -> C:\Users\Zeimd\Documents\Projektit\crender-mt\software-renderer\\lib\Debug\ceng-platform-debug.dll
+  C:\Users\Zeimd\Documents\Projektit\crender-mt\software-renderer\\lib\Debug\ceng-platform-debug.dll
+  C:\Users\Zeimd\Documents\Projektit\crender-mt\software-renderer\\lib\Debug\crender-mt-debug.dll
+          2 file(s) copied.

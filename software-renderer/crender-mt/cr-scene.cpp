@@ -476,8 +476,6 @@ const CRESULT CR_RenderContext::Execute_ClearDepth(const FLOAT32 depth,std::shar
 {
 	// Change render state only when a draw call is issued.
 
-	CRESULT cresult;
-
 	if (renderState->depthBuffer == nullptr)
 	{
 		return CE_OK;
@@ -490,8 +488,6 @@ const CRESULT CR_RenderContext::Execute_ClearDepthStencil(const FLOAT32 depth,
 														 const Ceng::UINT32 stencil,
 														 std::shared_ptr<RenderState> &renderState)
 {
-	CRESULT cresult;
-
 	if (renderState->depthBuffer == nullptr)
 	{
 		return CE_OK;

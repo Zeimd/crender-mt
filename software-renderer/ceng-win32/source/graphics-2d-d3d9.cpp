@@ -199,7 +199,7 @@ const CRESULT Graphics2D_D3D9::ConfigureOutput(IDirect3DDevice9 *sourceDevice,
 	// Copy vertex data to graphics memory
 	vertexBuffer[0]->Lock(0,0,(void**)&vertexData,NULL);
 
-	int k;
+	size_t k;
 	for(k=0;k<framePolygons.size();k++)
 	{
 		memcpy(&vertexData[4*k],&framePolygons[k].corner,4*sizeof(D3D_SCREEN_VERTEX));
@@ -257,7 +257,7 @@ const CRESULT Graphics2D_D3D9::ConfigureOutput(IDirect3DDevice9 *sourceDevice,
 
 		if (hr != D3D_OK)
 		{
-			int j;
+			size_t j;
 			for(j=0;j<k;j++)
 			{
 				framePolygons[j].texture[0]->Release();
@@ -283,7 +283,7 @@ const CRESULT Graphics2D_D3D9::ConfigureOutput(IDirect3DDevice9 *sourceDevice,
 
 		if (hr != D3D_OK)
 		{
-			int j;
+			size_t j;
 			for(j=0;j<k;j++)
 			{
 				framePolygons[j].texture[0]->Release();
@@ -316,8 +316,6 @@ const CRESULT Graphics2D_D3D9::ConfigureOutput(IDirect3DDevice9 *sourceDevice,
 
 const CRESULT Graphics2D_D3D9::GeneratePolygons()
 {
-	int xnum,ynum,k,j,index;
-
 	HRESULT hr;
 
 	D3DCAPS9 deviceCapability;
@@ -332,8 +330,8 @@ const CRESULT Graphics2D_D3D9::GeneratePolygons()
 	}
 	else
 	{
-		if (deviceCapability.MaxTextureWidth < displayWidth ||
-			deviceCapability.MaxTextureHeight < displayHeight)
+		if (deviceCapability.MaxTextureWidth < (DWORD)displayWidth ||
+			deviceCapability.MaxTextureHeight < (DWORD)displayHeight)
 		{
 			squares = true;
 		}
@@ -487,9 +485,7 @@ const CRESULT Graphics2D_D3D9::Restore()
 
 	// Release textures
 
-	INT32 k;
-
-	for(k=0;k<framePolygons.size();k++)
+	for(size_t k=0;k<framePolygons.size();k++)
 	{
 		framePolygons[k].texture[0]->Release();
 		framePolygons[k].texture[1]->Release();
@@ -528,7 +524,7 @@ const CRESULT Graphics2D_D3D9::Restore()
 
 	// Re-create textures
 
-	for(k=0;k<framePolygons.size();k++)
+	for(size_t k=0;k<framePolygons.size();k++)
 	{
 		hr = d3d_Device->CreateTexture(polyWidth,polyHeight,1,
 										 D3DUSAGE_DYNAMIC ,
@@ -563,7 +559,7 @@ const CRESULT Graphics2D_D3D9::ChangeWindowSize(const Ceng::UINT32 windowWidth,c
 	//****************************************************************
 	// TODO: clamp window size to desktop resolution
 
-	if (windowWidth > displayWidth)
+	if (windowWidth > (Ceng::UINT32)displayWidth)
 	{
 		
 	}
@@ -714,9 +710,7 @@ const CRESULT Graphics2D_D3D9::ShowFrame(Ceng::ImageBuffer *frameBuffer)
 	// TODO: Query framebuffer object for padding requirements when locking
 	//       areas from texture.
 
-	INT32 k;
-
-	for(k=0;k<framePolygons.size();k++)
+	for(size_t k=0;k<framePolygons.size();k++)
 	{
 		// Only marks the specified area as dirty. Useful for optimization,
 		// but requires further coordination with framebuffer object to avoid
@@ -783,7 +777,6 @@ const CRESULT Graphics2D_RenderTask::Exit()
 
 const CRESULT Graphics2D_RenderTask::Execute()
 {
-	CRESULT cresult;
 	HRESULT hr;
 
 	RECT targetArea;
@@ -833,9 +826,7 @@ const CRESULT Graphics2D_RenderTask::Execute()
 			hr = renderDevice->d3d_Device->SetStreamSource(0,
 				renderDevice->vertexBuffer[frontBuffer],0,sizeof(Graphics2D_D3D9::D3D_SCREEN_VERTEX));
 
-			Ceng::INT32 k;
-
-			for(k=0; k < renderDevice->framePolygons.size();k++)
+			for(size_t k=0; k < renderDevice->framePolygons.size();k++)
 			{
 				renderDevice->d3d_Device->SetTexture(0,
 					renderDevice->framePolygons[k].texture[frontBuffer]);

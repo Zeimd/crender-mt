@@ -22,7 +22,7 @@ CRESULT ConceptRenderer::CreatePixelShader(Ceng::PixelShader **shaderPtr)
 	{
 		pixelShader = new CR_PixelShader();
 	}
-	catch(std::bad_alloc &ba)
+	catch(std::bad_alloc&)
 	{
 		return CE_ERR_OUT_OF_MEMORY;
 	}

@@ -446,7 +446,7 @@ _declspec(align(16)) const Ceng::FLOAT32 colorScaleVec[4] = {255.0f,255.0f,255.0
 
 const CRESULT PixelShaderInstance::ProcessQuads(Task_PixelShader *batch, const Ceng::INT32 threadId)
 {
-	UINT32 k,j;
+	UINT32 k;
 
 	// Initialize pointer to current quad chain structure
 	// NOTE: Input & output registers access this value through a pointer
@@ -492,8 +492,8 @@ const CRESULT PixelShaderInstance::ProcessQuads(Task_PixelShader *batch, const C
 		//**********************************
 		// Generate temporary quad
 
-		INT32 floatBlockSize = quadFormat->floatBlocks;
-		INT32 doubleBlockSize = quadFormat->doubleBlocks;
+		UINT32 floatBlockSize = quadFormat->floatBlocks;
+		UINT32 doubleBlockSize = quadFormat->doubleBlocks;
 		
 		CR_FloatFragment *floatParam = (CR_FloatFragment*)triangle->fragment.floatBlock;
 		CR_DoubleFragment *doubleParam = (CR_DoubleFragment*)triangle->fragment.doubleBlock;
@@ -508,12 +508,10 @@ const CRESULT PixelShaderInstance::ProcessQuads(Task_PixelShader *batch, const C
 
 		VectorF4 *destF4 = (VectorF4*)&quadBuffer[quadFloatOffset];
 
-		INT32 i;
-
 		__m128 screenVecX = _mm_load1_ps(&screenX);
 		__m128 screenVecY = _mm_load1_ps(&screenY);
 
-		for (i = 0; i < floatBlockSize; ++i)
+		for (Ceng::UINT32 i = 0; i < floatBlockSize; ++i)
 		{
 			__m128 startValue = _mm_load_ps((float*)&floatParam[i].startValue);
 
@@ -556,7 +554,7 @@ const CRESULT PixelShaderInstance::ProcessQuads(Task_PixelShader *batch, const C
 
 		POINTER *target = (POINTER*)&quadBuffer[quadTargetOffset];
 
-		for(i=2;i<activeRenderTargets;i++)
+		for(Ceng::UINT32 i=2;i<activeRenderTargets;i++)
 		{
 			target[i] = targetHandles[i]->GetQuadAddress(0,quad->screenX,
 																quad->screenY);

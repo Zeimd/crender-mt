@@ -239,14 +239,14 @@ CRESULT CR_NewTargetData::BufferSwap_Lquads_SOA(const Ceng::Rectangle &sourceAre
 
 	area.right = sourceArea.right;
 
-	if (area.right > bufferWidth)
+	if (area.right > Ceng::INT32(bufferWidth))
 	{
 		area.right = bufferWidth;
 	}
 
 	area.bottom = sourceArea.bottom;
 
-	if (area.bottom > bufferHeight)
+	if (area.bottom > Ceng::INT32(bufferHeight))
 	{
 		area.bottom = bufferHeight;
 	}

@@ -84,7 +84,7 @@ CRESULT CR_PixelShader::GetConstant(const char *variableName,
 				*handle = (Ceng::ShaderConstant*)
 							new CR_ShaderConstHandle(k,&wrapper);
 			}
-			catch(std::bad_alloc &ba)
+			catch(std::bad_alloc&)
 			{
 				return CE_ERR_OUT_OF_MEMORY;
 			}
@@ -134,7 +134,7 @@ CRESULT CR_PixelShader::SetRenderTargets(Ceng::UINT32 amount,
 										 std::shared_ptr<CR_NewTargetData> &depthStencil)
 {
 
-	UINT32 k,j;
+	UINT32 k;
 
 	UINT32 tempFlags = 0;
 

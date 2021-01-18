@@ -41,8 +41,6 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF|_CRTDBG_LEAK_CHECK_DF);
 #endif
 
-	int k;
-
 	Ceng::CRESULT cresult;
 
 	Ceng::FileLog engineLog;
@@ -677,6 +675,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 
 	//cresult = CreateTexture2dFromFile("ceiling.bmp", textureDesc, renderer, &texture);
 	cresult = CreateTexture2dFromFile("brickwall.bmp", textureDesc, renderer,&texture);
+	//cresult = CreateTexture2dFromFile("granite.bmp", textureDesc, renderer, &texture);
 	//cresult = CreateTexture2dFromFile("checkerboard.bmp", textureDesc, renderer, &texture);
 
 	if (cresult != Ceng::CE_OK)
@@ -928,61 +927,61 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 				// Move camera forward
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::W))
 				{
-					camera.MoveByDelta(Ceng::VectorF4(0.0f,0.0f,-moveSpeed*physDeltaTime));
+					camera.MoveByDelta(Ceng::VectorF4(0.0f,0.0f,-moveSpeed*Ceng::FLOAT32(physDeltaTime)));
 				}
 				
 				// Move camera backwards
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::S))
 				{
-					camera.MoveByDelta(Ceng::VectorF4(0.0f, 0.0f, moveSpeed*physDeltaTime));
+					camera.MoveByDelta(Ceng::VectorF4(0.0f, 0.0f, moveSpeed*Ceng::FLOAT32(physDeltaTime)));
 				}
 
 				// Move camera left
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::A))
 				{
-					camera.MoveByDelta(Ceng::VectorF4(-moveSpeed*physDeltaTime, 0.0f, 0.0f));
+					camera.MoveByDelta(Ceng::VectorF4(-moveSpeed*Ceng::FLOAT32(physDeltaTime), 0.0f, 0.0f));
 				}
 				
 				// Move camera right
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::D))
 				{
-					camera.MoveByDelta(Ceng::VectorF4(moveSpeed*physDeltaTime, 0.0f, 0.0f));
+					camera.MoveByDelta(Ceng::VectorF4(moveSpeed*Ceng::FLOAT32(physDeltaTime), 0.0f, 0.0f));
 				}
 
 				// Move camera up
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::Q))
 				{
-					camera.MoveByDelta(Ceng::VectorF4(0.0f, moveSpeed*physDeltaTime, 0.0f));
+					camera.MoveByDelta(Ceng::VectorF4(0.0f, moveSpeed*Ceng::FLOAT32(physDeltaTime), 0.0f));
 				}
 				
 				// Move camera down
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::E))
 				{
-					camera.MoveByDelta(Ceng::VectorF4(0.0f, -moveSpeed*physDeltaTime, 0.0f));
+					camera.MoveByDelta(Ceng::VectorF4(0.0f, -moveSpeed*Ceng::FLOAT32(physDeltaTime), 0.0f));
 				}
 
 				// Turn camera left
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::LEFT_ARROW))
 				{
-					camera.RotateByDeltas(0.0f, cameraRotateSpeed*physDeltaTime, 0.0f);
+					camera.RotateByDeltas(0.0f, cameraRotateSpeed*Ceng::FLOAT32(physDeltaTime), 0.0f);
 				}
 				
 				// Turn camera right
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::RIGHT_ARROW))
 				{
-					camera.RotateByDeltas(0.0f, -cameraRotateSpeed*physDeltaTime, 0.0f);
+					camera.RotateByDeltas(0.0f, -cameraRotateSpeed*Ceng::FLOAT32(physDeltaTime), 0.0f);
 				}
 
 				// Turn camera up
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::UP_ARROW))
 				{
-					camera.RotateByDeltas(cameraRotateSpeed*physDeltaTime, 0.0f, 0.0f);
+					camera.RotateByDeltas(cameraRotateSpeed*Ceng::FLOAT32(physDeltaTime), 0.0f, 0.0f);
 				}
 				
 				// Turn camera down
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::DOWN_ARROW))
 				{
-					camera.RotateByDeltas(-cameraRotateSpeed*physDeltaTime, 0.0f, 0.0f);
+					camera.RotateByDeltas(-cameraRotateSpeed*Ceng::FLOAT32(physDeltaTime), 0.0f, 0.0f);
 				}
 
 				// Rotate camera left
@@ -990,7 +989,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 				//        -z is used as rotation axis
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::HOME))
 				{
-					camera.RotateByDeltas(0.0f, 0.0f, cameraRotateSpeed*physDeltaTime);
+					camera.RotateByDeltas(0.0f, 0.0f, cameraRotateSpeed*Ceng::FLOAT32(physDeltaTime));
 				}
 				
 				// Rotate camera right
@@ -998,20 +997,20 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 				//        -z is used as rotation axis
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::END))
 				{
-					camera.RotateByDeltas(0.0f, 0.0f, -cameraRotateSpeed*physDeltaTime);
+					camera.RotateByDeltas(0.0f, 0.0f, -cameraRotateSpeed*Ceng::FLOAT32(physDeltaTime));
 				}
 
 				
 				// Rotate cube counterclockwise around y-axis
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::KEY_1))
 				{
-					cubeActor.RotateByDeltas(0.0f, cameraRotateSpeed*physDeltaTime, 0.0f);
+					cubeActor.RotateByDeltas(0.0f, cameraRotateSpeed*Ceng::FLOAT32(physDeltaTime), 0.0f);
 				}
 				
 				// Rotate cube clockwise around y-axis
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::KEY_2))
 				{
-					cubeActor.RotateByDeltas(0.0f, -cameraRotateSpeed*physDeltaTime, 0.0f);
+					cubeActor.RotateByDeltas(0.0f, -cameraRotateSpeed*Ceng::FLOAT32(physDeltaTime), 0.0f);
 				}
 
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::F1))

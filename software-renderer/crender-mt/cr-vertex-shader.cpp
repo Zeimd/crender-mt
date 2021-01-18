@@ -67,8 +67,7 @@ void CR_VertexShader::Release()
 CRESULT CR_VertexShader::GetConstant(const char *variableName,
 									 Ceng::ShaderConstant **handle)
 {
-	int k;
-
+	size_t k;
 	for(k=0;k<uniformList.size();k++)
 	{
 		if (uniformList[k].name == variableName)
@@ -78,7 +77,7 @@ CRESULT CR_VertexShader::GetConstant(const char *variableName,
 				*handle = (Ceng::ShaderConstant*)
 							new CR_ShaderConstHandle(k,&wrapper);
 			}
-			catch(std::bad_alloc &ba)
+			catch(std::bad_alloc&)
 			{
 				return CE_ERR_OUT_OF_MEMORY;
 			}
@@ -171,8 +170,6 @@ CRESULT CR_VertexShader::SetVertexFormat(CR_VertexFormat *vertexDecl)
 	{
 		return CE_ERR_INCOMPATIBLE_FORMAT;
 	}
-
-	int k,j;
 
 	nextInstance->vertexFormat = vertexDecl;
 

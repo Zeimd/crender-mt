@@ -245,16 +245,14 @@ const CRESULT CR_VertexShaderInstance::SetFragmentFormat()
 	outputRegisters = AlignedBuffer<CR_vsOutputRegister>(
 		fragmentFormat->variables.size(),shader->cacheLine);
 
-	INT32 k,j;
-
-	for(k=0;k<fragmentFormat->variables.size();k++)
+	for(size_t k=0;k<fragmentFormat->variables.size();k++)
 	{
 		outputRegisters[k].destAddress = &outputBaseAddress;
 		outputRegisters[k].destFormat = fragmentFormat->variables[k].format;
 		outputRegisters[k].destOffset = fragmentFormat->variables[k].offset;
 	}
 
-	for(k=0;k<fragmentFormat->variables.size();k++)
+	for(size_t k=0;k<fragmentFormat->variables.size();k++)
 	{
 		switch(fragmentFormat->variables[k].semantic)
 		{
@@ -382,9 +380,7 @@ const CRESULT CR_VertexShaderInstance::ConfigureUniforms(const std::vector<CR_Sh
 
 const CRESULT CR_VertexShaderInstance::ProcessVertexBatch(std::shared_ptr<DrawBatch> batch,
 														  LockingStage *outputQueue)
-{
-	UINT32 k,i;
-
+{	
 //	return CE_OK;
 
 	INT32 inputCount = inputRegisters.GetElements();
@@ -392,13 +388,13 @@ const CRESULT CR_VertexShaderInstance::ProcessVertexBatch(std::shared_ptr<DrawBa
 
 	outputBaseAddress = (POINTER)& (*(batch->fragmentCache))[0];
 
-	for(k=0;k<batch->vertexCount;k++)
+	for(Ceng::UINT32 k=0;k<batch->vertexCount;k++)
 	{
 		Ceng::UINT32 index = batch->fragmentIndex[k].tag;
 
 		// Move input pointers to correct position
 
-		for(i=0;i<inputCount;i++)
+		for(Ceng::INT32 i=0;i<inputCount;i++)
 		{
 			inputRegisters[i].sourceAddress = inputBaseAddress[i]
 				+ index*inputSteps[i];

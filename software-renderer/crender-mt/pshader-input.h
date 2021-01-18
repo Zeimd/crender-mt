@@ -11,10 +11,13 @@
 #ifndef _CENG_CR_PSHADER_INPUT_H
 #define _CENG_CR_PSHADER_INPUT_H
 
+#include <immintrin.h>
+
 #include <ceng/enums/shader-semantic.h>
 #include <ceng/enums/shader-datatype.h>
 
 #include "crender-base.h"
+
 
 namespace Ceng
 {
