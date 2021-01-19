@@ -15,6 +15,7 @@
 #include <ceng/lib/liblog.h>
 
 #include <timerlib.h>
+#include <string.h>
 
 // Debug information
 #ifdef _MSC_VER
@@ -673,14 +674,26 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 	cresult = renderer->CreateTexture2D(textureDesc,&textureFill, &texture);
 	*/
 
-	//cresult = CreateTexture2dFromFile("ceiling.bmp", textureDesc, renderer, &texture);
-	cresult = CreateTexture2dFromFile("brickwall.bmp", textureDesc, renderer,&texture);
-	//cresult = CreateTexture2dFromFile("granite.bmp", textureDesc, renderer, &texture);
-	//cresult = CreateTexture2dFromFile("checkerboard.bmp", textureDesc, renderer, &texture);
+	bool imgLoaded = false;
 
-	if (cresult != Ceng::CE_OK)
+	if (strlen(lpCmdLine) > 0)
 	{
-		return 0;
+		cresult = CreateTexture2dFromFile(lpCmdLine, textureDesc, renderer, &texture);
+
+		if (cresult == Ceng::CE_OK)
+		{
+			imgLoaded = true;
+		}
+	}
+	
+	if (!imgLoaded)
+	{
+		cresult = CreateTexture2dFromFile("texture.bmp", textureDesc, renderer, &texture);
+
+		if (cresult != Ceng::CE_OK)
+		{
+			return 0;
+		}
 	}
 
 	/*
