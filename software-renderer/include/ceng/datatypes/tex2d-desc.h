@@ -24,6 +24,8 @@ namespace Ceng
 		Ceng::UINT32 width;
 		Ceng::UINT32 height;
 
+		// Number of mipmap levels present per texture.
+		// If set to 0, assume all levels are present.
 		Ceng::UINT32 mipLevels;
 		Ceng::UINT32 arraySize;
 
