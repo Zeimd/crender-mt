@@ -1,7 +1,0 @@
-﻿  main.cpp
-c:\users\zeimd\documents\projektit\crender-mt\software-renderer\alg-test\main.cpp(99): warning C4101: 'results_avx': unreferenced local variable
-c:\users\zeimd\documents\projektit\crender-mt\software-renderer\alg-test\main.cpp(67): warning C4101: 'sse_round_trip': unreferenced local variable
-  Generating code
-  All 27 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  Finished generating code
-  alg-test.vcxproj -> C:\Users\Zeimd\Documents\Projektit\crender-mt\software-renderer\Release\alg-test.exe

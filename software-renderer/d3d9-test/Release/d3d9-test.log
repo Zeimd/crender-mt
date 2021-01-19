@@ -1,7 +1,0 @@
-﻿  image-format-string.cpp
-  main.cpp
-c:\users\zeimd\documents\projektit\crender-mt\software-renderer\d3d9-test\main.cpp(47): warning C4101: 'k': unreferenced local variable
-  Generating code
-  All 437 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  Finished generating code
-  d3d9-test.vcxproj -> C:\Users\Zeimd\Documents\Projektit\crender-mt\software-renderer\\bin\d3d9-test.exe
