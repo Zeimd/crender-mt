@@ -618,13 +618,12 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 
 	textureDesc.width = 8;
 	textureDesc.height = 8;
-	//textureDesc.format = Ceng::IMAGE_FORMAT::C32_ARGB;
-	textureDesc.format = Ceng::IMAGE_FORMAT::C24_RGB;
+	textureDesc.format = Ceng::IMAGE_FORMAT::C32_ARGB;
+	//textureDesc.format = Ceng::IMAGE_FORMAT::C24_RGB;
 	textureDesc.arraySize = 1;
-	textureDesc.mipLevels = 0;// 8;
-	textureDesc.miscFlags = Ceng::BufferOptions::generate_mip_maps;
+	textureDesc.mipLevels = 1;// 8;
+	textureDesc.miscFlags = 0; 
 
-	/*
 	// Initial data
 
 	struct Color32
@@ -637,10 +636,10 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 
 	Color32 textureData[8][8];
 
-	Color32 white = { 200, 60, 0, 255 };
-	Color32 orange = { 50, 50, 50, 255 };
+	Color32 white = { 255, 255, 255, 0 };
+	Color32 orange = { 0, 69, 255, 0 };
 
-	Ceng::UINT32 j;
+	Ceng::UINT32 k,j;
 
 	for (k = 0; k < 8; ++k)
 	{
@@ -650,6 +649,25 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 		}
 	}
 
+	textureData[0][0] = orange;
+	textureData[1][1] = orange;
+	textureData[2][2] = orange;
+	textureData[3][3] = orange;
+	textureData[4][4] = orange;
+	textureData[5][5] = orange;
+	textureData[6][6] = orange;
+	textureData[7][7] = orange;
+
+	textureData[0][7] = orange;
+	textureData[1][6] = orange;
+	textureData[2][5] = orange;
+	textureData[3][4] = orange;
+	textureData[4][3] = orange;
+	textureData[5][2] = orange;
+	textureData[6][1] = orange;
+	textureData[7][0] = orange;
+
+	/*
 	for (j = 0; j < 8; j++)
 	{
 		textureData[0][j] = orange;
@@ -664,6 +682,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 		textureData[j][0] = orange;
 		textureData[j][7] = orange;
 	}
+	*/
 
 	Ceng::SubResourceData textureFill;
 
@@ -671,27 +690,49 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 	textureFill.rowPitch = 4*8;
 	textureFill.depthPitch = 4 * 8 * 8;
 
-	cresult = renderer->CreateTexture2D(textureDesc,&textureFill, &texture);
-	*/
-
 	bool imgLoaded = false;
 
 	if (strlen(lpCmdLine) > 0)
 	{
+		textureDesc.miscFlags = Ceng::BufferOptions::generate_mip_maps;
+
 		cresult = CreateTexture2dFromFile(lpCmdLine, textureDesc, renderer, &texture);
 
 		if (cresult == Ceng::CE_OK)
 		{
 			imgLoaded = true;
 		}
+		else
+		{
+			Ceng::Log::Print("Error : Failed to load texture file from command line\n");
+		}
 	}
 	
 	if (!imgLoaded)
 	{
+		textureDesc.miscFlags = Ceng::BufferOptions::generate_mip_maps;
+
 		cresult = CreateTexture2dFromFile("texture.bmp", textureDesc, renderer, &texture);
+
+		if (cresult == Ceng::CE_OK)
+		{
+			imgLoaded = true;
+		}
+		else
+		{
+			Ceng::Log::Print("Error : Failed to load texture.bmp\n");
+		}
+	}
+
+	if (!imgLoaded)
+	{
+		textureDesc.miscFlags = 0;
+
+		cresult = renderer->CreateTexture2D(textureDesc, &textureFill, &texture);
 
 		if (cresult != Ceng::CE_OK)
 		{
+			Ceng::Log::Print("Error : Built-in fallback texture creation failed\n");
 			return 0;
 		}
 	}
@@ -750,6 +791,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 	
 	texSamplerDesc.minFilter = Ceng::TextureMinFilter::linear;
 	//texSamplerDesc.minFilter = Ceng::TextureMinFilter::linear_mip_nearest;
+
 	texSamplerDesc.magFilter = Ceng::TextureMagFilter::linear;
 
 	texSamplerDesc.minLod = 0;
@@ -774,8 +816,17 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 		return 0;
 	}
 
-	renderContext->SetSamplerState(0, texSamplerLinear);
-	//renderContext->SetSamplerState(0, texSamplerNearest);
+	Ceng::INT32 filterMode = 1;
+
+	if (imgLoaded)
+	{
+		renderContext->SetSamplerState(0, texSamplerLinear);
+	}
+	else
+	{
+		filterMode = 0;
+		renderContext->SetSamplerState(0, texSamplerNearest);
+	}
 	renderContext->SetShaderResource(0, texView);
 
 	//**********************************************************
@@ -887,8 +938,6 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 	frameTime = 0;
 
 	Ceng::FLOAT64 physTime,physCurrentTime,physDeltaTime;
-
-	Ceng::INT32 filterMode = 1;
 	
 	physTime = Timer();
 
