@@ -46,9 +46,25 @@ const CRESULT CR_Texture2D::GetShaderViewTex2D(const ShaderResourceViewDesc &vie
 {
 	TextureMipVector tempTex;
 
-	for (Ceng::UINT32 k = viewDesc.tex2d.baseMipLevel; k < viewDesc.tex2d.maxMipLevel; ++k)
+	size_t start = size_t(viewDesc.tex2d.baseMipLevel);
+	size_t end = size_t(viewDesc.tex2d.maxMipLevel);
+
+	if (start > textures[0].size())
 	{
-		tempTex.push_back(textures[0][k]);
+		start = textures[0].size();
+	}
+
+	if (end > textures[0].size())
+	{
+		end = textures[0].size();
+	}
+
+	for (size_t k = start; k < end; ++k)
+	{
+		if (k < textures[0].size())
+		{
+			tempTex.push_back(textures[0][k]);
+		}
 	}
 
 	Texture2dDesc texDesc(desc);
@@ -57,7 +73,7 @@ const CRESULT CR_Texture2D::GetShaderViewTex2D(const ShaderResourceViewDesc &vie
 	texDesc.height = desc.height >> viewDesc.tex2d.baseMipLevel;
 
 	texDesc.arraySize = 1;
-	texDesc.mipLevels = viewDesc.tex2d.maxMipLevel-viewDesc.tex2d.baseMipLevel;
+	texDesc.mipLevels = end-start;
 
 	*out_view = new CR_ShaderViewTex2D(texDesc, std::move(tempTex));
 
