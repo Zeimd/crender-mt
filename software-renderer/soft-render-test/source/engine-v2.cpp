@@ -887,6 +887,8 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 	frameTime = 0;
 
 	Ceng::FLOAT64 physTime,physCurrentTime,physDeltaTime;
+
+	Ceng::INT32 filterMode = 1;
 	
 	physTime = Timer();
 
@@ -1028,11 +1030,13 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::F1))
 				{
+					filterMode = 0;
 					renderContext->SetSamplerState(0, texSamplerNearest);
 				}
 
 				if (keyboard->IsPressed(Ceng::KEYBOARD_KEY::F2))
 				{
+					filterMode = 1;
 					renderContext->SetSamplerState(0, texSamplerLinear);
 				}
 
@@ -1062,11 +1066,21 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 					captionInfo += (int)displayWidth;
 					captionInfo += " x ";
 					captionInfo += (int)displayHeight;
+					if (filterMode == 0)
+					{
+						captionInfo += " | Nearest";
+					}
+					else
+					{
+						captionInfo += " | Linear";
+					}
+
 					captionInfo += " | FPS = ";
 					captionInfo += fps;
 					captionInfo += " | t = ";
 					captionInfo += 1000.0f * (frameTime/fps);
 					captionInfo += " ms";
+
 
 					frameTime = 0.0f;
 				
