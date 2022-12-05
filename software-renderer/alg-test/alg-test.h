@@ -38,4 +38,6 @@ void float_sort4_minmax_stl(float* input4, const int size);
 // Works for floating point values [+0,inf[
 void float_sort4_minmax_stl_int_punning(float* input4, const int size);
 
+void float_sort4_minmax_x87_cmov(float* input4, const int size);
+
 void float_sort4_sse(float* input4, const int size);

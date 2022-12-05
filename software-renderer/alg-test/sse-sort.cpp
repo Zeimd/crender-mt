@@ -127,6 +127,206 @@ void float_sort4_minmax_stl_int_punning(float* input4, const int size)
 	}
 }
 
+void float_sort4_minmax_x87_cmov(float* input4, const int size)
+{
+	for (int group = 0; group < size; group += 4)
+	{
+		float *start = &input4[group];
+
+		float abMin, abMax;
+		float cdMin, cdMax;
+
+		float minOfMax, maxOfMin;
+
+		__asm
+		{
+			mov esi, start;
+
+			//-------------------------------
+			// Calculate min(a,b) and max(a,b)
+
+			fld DWORD PTR [esi];
+			fld DWORD PTR [esi + 4]; 
+			
+			// st(0) = b
+			// st(1) = a
+
+			fucomi st, st(1); // b > a ?
+
+			fld st(0);
+
+			// st(0) = b
+			// st(1) = b
+			// st(2) = a
+
+			fcmovnb st(0), st(2);
+
+			// st(0) = min(a,b)
+			// st(1) = b
+			// st(2) = a
+
+			fstp DWORD PTR[abMin];
+
+			// st(1) = b
+			// st(2) = a
+
+			fcmovb st(0), st(1);
+
+			// st(0) = max(a,b)
+			// st(1) = a
+
+			fstp DWORD PTR [abMax];
+			fstp st(0);
+
+			//-------------------------------
+			// Calculate min(c,d) and max(c,d)
+
+			fld DWORD PTR[esi+8];
+			fld DWORD PTR[esi + 12];
+
+			// st(0) = d
+			// st(1) = c
+
+			fucomi st, st(1); // d > c ?
+
+			fld st(0);
+
+			// st(0) = d
+			// st(1) = d
+			// st(2) = c
+
+			fcmovnb st(0), st(2);
+
+			// st(0) = min(c,d)
+			// st(1) = d
+			// st(2) = c
+
+			fstp DWORD PTR[cdMin];
+
+			// st(1) = d
+			// st(2) = c
+
+			fcmovb st(0), st(1);
+
+			// st(0) = max(c,d)
+			// st(1) = c
+
+			fstp DWORD PTR[cdMax];
+			fstp st(0);
+
+			//-------------------------------
+			// Calculate min(abMin,cdMin) and max(abMin,cdMin)
+
+			fld DWORD PTR[abMin];
+			fld DWORD PTR[cdMin];
+
+			// st(0) = cdMin
+			// st(1) = abMin
+
+			fucomi st, st(1); // cdMin > abMin ?
+
+			fld st(0);
+
+			// st(0) = cdMin
+			// st(1) = cdMin
+			// st(2) = abMin
+
+			fcmovnb st(0), st(2);
+
+			// st(0) = min(abMin,cdMin)
+			// st(1) = cdMin
+			// st(2) = abMin
+
+			fstp DWORD PTR[esi];  // out[0]
+
+			// st(1) = cdMin
+			// st(2) = abMin
+
+			fcmovb st(0), st(1);
+
+			// st(0) = max(abMin,cdMin)
+			// st(1) = abMin
+
+			fstp DWORD PTR[maxOfMin];
+			fstp st(0);
+
+			//-------------------------------
+			// Calculate min(abMax,cdMax) and max(abMax,cdMax)
+
+			fld DWORD PTR[abMax];
+			fld DWORD PTR[cdMax];
+
+			// st(0) = cdMax
+			// st(1) = abMax
+
+			fucomi st, st(1); // cdMax > abMax ?
+
+			fld st(0);
+
+			// st(0) = cdMax
+			// st(1) = cdMax
+			// st(2) = abMax
+
+			fcmovnb st(0), st(2);
+
+			// st(0) = min(abMax,cdMax)
+			// st(1) = cdMax
+			// st(2) = abMax
+
+			fstp DWORD PTR[minOfMax];
+
+			// st(1) = cdMax
+			// st(2) = abMax
+
+			fcmovb st(0), st(1);
+
+			// st(0) = max(abMax,cdMax)
+			// st(1) = abMax
+
+			fstp DWORD PTR[esi+12]; // out[3]
+			fstp st(0);
+
+			//-------------------------------
+			// Calculate min(minOfMax,maxOfMin) and
+			// max(minOfMax,maxOfMin)
+
+			fld DWORD PTR[minOfMax];
+			fld DWORD PTR[maxOfMin];
+
+			// st(0) = maxOfMin
+			// st(1) = minOfMax
+
+			fucomi st, st(1); // maxOfMin > minOfMax ?
+
+			fld st(0);
+
+			// st(0) = maxOfMin
+			// st(1) = maxOfMin
+			// st(2) = minOfMax
+
+			fcmovnb st(0), st(2);
+
+			// st(0) = min(minOfMax,maxOfMin)
+			// st(1) = maxOfMin
+			// st(2) = minOfMax
+
+			fstp DWORD PTR[esi+4]; // out[1]
+
+			// st(1) = maxOfMin
+			// st(2) = minOfMax
+
+			fcmovb st(0), st(1);
+
+			// st(0) = max(minOfMax,maxOfMin)
+			// st(1) = minOfMax
+
+			fstp DWORD PTR[esi + 8]; // out[2]
+			fstp st(0);
+		}
+	}
+}
+
+
 // Vectorized version of minmax sort
 void float_sort4_sse(float* input4, const int size)
 {
