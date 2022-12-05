@@ -61,10 +61,11 @@ void round_trip_test(const unsigned char *input)
 
 int sort_test()
 {
-	const int test_size = 4;
+	const int test_size = 4 * 4;
 
 	float* input = (float*)Ceng::AlignedMalloc(test_size * sizeof(float), 64);
-	float* output = (float*)Ceng::AlignedMalloc(test_size * sizeof(float), 64);
+
+	float* temp_input = (float*)Ceng::AlignedMalloc(test_size * sizeof(float), 64);
 
 	float* correct_output = (float*)Ceng::AlignedMalloc(test_size * sizeof(float), 64);
 
@@ -76,7 +77,6 @@ int sort_test()
 	for (int k = 0; k < test_size; ++k)
 	{
 		input[k] = (rand() % 257) / 256.0f;
-		output[k] = (rand() % 257) / 256.0f;
 	}
 
 	input[0] = 4.0;
@@ -86,25 +86,40 @@ int sort_test()
 
 	std::cout << "Input dump:" << std::endl;
 
-	for (int k = 0; k < test_size; k++)
+	int groups = test_size / 4;
+
+	for (int i = 0; i < groups; i++)
 	{
-		std::cout << "input[" << k << "] = " << input[k] << std::endl;
+		std::cout << "-------------------------------------" << std::endl;
+		for (int k = 0; k < 4; k++)
+		{
+			std::cout << "input[" << k << "] = " << input[4*i+k] << std::endl;
+		}
 	}
 
+	std::cout << "-------------------------------------" << std::endl;
 
 	double start, end;
 	double duration, base_duration;
 
 	start = Timer();
 
-	float_sort4_qsort(input, correct_output, test_size);
+	memcpy(correct_output, input, test_size * sizeof(float));
+
+	float_sort4_stdlib_qsort(correct_output, test_size);
 
 	std::cout << "correct output dump:" << std::endl;
 
-	for (int k = 0; k < test_size; k++)
+	for (int i = 0; i < groups; i++)
 	{
-		std::cout << "out[" << k << "] = " << correct_output[k] << std::endl;
+		std::cout << "-------------------------------------" << std::endl;
+		for (int k = 0; k < 4; k++)
+		{
+			std::cout << "out[" << k << "] = " << correct_output[4 * i + k] << std::endl;
+		}
 	}
+
+	std::cout << "-------------------------------------" << std::endl;
 
 	end = Timer();
 
@@ -114,7 +129,9 @@ int sort_test()
 
 	start = Timer();
 
-	float_sort4_sse(input, output, test_size);
+	memcpy(temp_input, input, test_size * sizeof(float));
+
+	float_sort4_sse(temp_input, test_size);
 
 	end = Timer();
 
@@ -124,21 +141,27 @@ int sort_test()
 
 	std::cout << "correctness check:" << std::endl;
 
-	for (int k = 0; k < test_size; k++)
-	{
-		if (output[k] != correct_output[k])
-		{
-			std::cout << "Mismatch: " << k << ": found = " << output[k] << ", expected = " << correct_output[k] << std::endl;
-		}
-		else
-		{
-			std::cout << "Correct: " << k << ": found = " << output[k] << ", expected = " << correct_output[k] << std::endl;
+	int errorCount = 0;
 
+	for (int i = 0; i < groups; i++)
+	{
+		for (int k = 0; k < 4; k++)
+		{
+			if (temp_input[4 * i + k] != correct_output[4 * i + k])
+			{
+				std::cout << "Mismatch: " << k << ": found = " << temp_input[4 * i + k] << ", expected = " << correct_output[4 * i + k] << std::endl;
+				errorCount++;
+			}
 		}
 	}
 
+	if (errorCount == 0)
+	{
+		std::cout << "No errors" << std::endl;
+	}
+
 	Ceng::AlignedFree(input);
-	Ceng::AlignedFree(output);
+	Ceng::AlignedFree(temp_input);
 	Ceng::AlignedFree(correct_output);
 
 	return 0;

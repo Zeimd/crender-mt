@@ -27,6 +27,6 @@ void uint8_to_normalized_float_avx(const unsigned char* input16, float* output16
 //****************************************************************************
 // sorting algorithm
 
-void float_sort4_qsort(float* input4, float* output4, const int size);
+void float_sort4_stdlib_qsort(float* input4, const int size);
 
-void float_sort4_sse(float* input4, float* output4, const int size);
+void float_sort4_sse(float* input4, const int size);
