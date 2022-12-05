@@ -152,11 +152,15 @@ int sort_test()
 	double start, end;
 	double base_duration;
 
-	start = Timer();
-
 	memcpy(correct_output, input, test_size * sizeof(float));
 
+	start = Timer();
+
 	float_sort4_stdlib_qsort(correct_output, test_size);
+
+	end = Timer();
+
+	base_duration = end - start;
 
 	/*
 	std::cout << "correct output dump:" << std::endl;
@@ -172,16 +176,12 @@ int sort_test()
 
 	std::cout << "-------------------------------------" << std::endl;
 	*/
-	
-
-	end = Timer();
-
-	base_duration = end - start;
 
 	std::cout << "stdlib quicksort: " << base_duration << std::endl;
 
 	sort4_test("selection sort", float_sort4_selection_sort, input, correct_output, test_size, base_duration);
 	sort4_test("insertion sort", float_sort4_insertion_sort, input, correct_output, test_size, base_duration);
+	sort4_test("minmax sort STL", float_sort4_minmax_stl, input, correct_output, test_size, base_duration);
 	sort4_test("SSE sort", float_sort4_sse, input, correct_output, test_size, base_duration);
 
 	Ceng::AlignedFree(input);

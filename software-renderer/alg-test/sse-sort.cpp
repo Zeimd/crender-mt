@@ -1,4 +1,6 @@
 
+#include <algorithm>
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -76,6 +78,30 @@ void float_sort4_stdlib_qsort(float* input4, const int size)
 	}
 }
 
+
+void float_sort4_minmax_stl(float* input4, const int size)
+{
+	for (int group = 0; group < size; group += 4)
+	{
+		float a = input4[group];
+		float b = input4[group + 1];
+		float c = input4[group + 2];
+		float d = input4[group + 3];
+
+		float t0 = std::min(a, b);
+		float t1 = std::min(c, d);
+		float t2 = std::max(a, b);
+		float t3 = std::max(c, d);
+
+		float t4 = std::max(t0, t1);
+		float t5 = std::min(t2, t3);
+
+		input4[group] = std::min(t0, t1);
+		input4[group + 1] = std::min(t4, t5);
+		input4[group + 2] = std::max(t4, t5);
+		input4[group + 3] = std::max(t2, t3);
+	}
+}
 
 void float_sort4_sse(float* input4, const int size)
 {

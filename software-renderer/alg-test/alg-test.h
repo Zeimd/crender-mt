@@ -33,4 +33,6 @@ void float_sort4_insertion_sort(float* input4, const int size);
 
 void float_sort4_stdlib_qsort(float* input4, const int size);
 
+void float_sort4_minmax_stl(float* input4, const int size);
+
 void float_sort4_sse(float* input4, const int size);
