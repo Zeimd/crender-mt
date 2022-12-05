@@ -21,6 +21,9 @@
     <ClCompile Include="uint8-float.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sse-sort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="alg-test.h">

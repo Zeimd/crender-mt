@@ -23,11 +23,15 @@ void round_trip_test(const unsigned char *input);
 
 void accuracy_test(float *exact, float *test, const int size);
 
+int sort_test();
+
 int uint8_to_normalized_float_tests();
 
 int main()
 {
-	uint8_to_normalized_float_tests();
+	sort_test();
+
+	//uint8_to_normalized_float_tests();
 
 	return 0;
 }
@@ -53,6 +57,93 @@ void round_trip_test(const unsigned char *input)
 		}
 	}
 }
+
+
+int sort_test()
+{
+	const int test_size = 4;
+
+	float* input = (float*)Ceng::AlignedMalloc(test_size * sizeof(float), 64);
+	float* output = (float*)Ceng::AlignedMalloc(test_size * sizeof(float), 64);
+
+	float* correct_output = (float*)Ceng::AlignedMalloc(test_size * sizeof(float), 64);
+
+
+	std::cout << "*******************************************************" << std::endl;
+	std::cout << "sort test" << std::endl;
+
+	std::cout << "randomizing input" << std::endl;
+	for (int k = 0; k < test_size; ++k)
+	{
+		input[k] = (rand() % 257) / 256.0f;
+		output[k] = (rand() % 257) / 256.0f;
+	}
+
+	input[0] = 4.0;
+	input[1] = 3.0;
+	input[2] = 2.0;
+	input[3] = 1.0;
+
+	std::cout << "Input dump:" << std::endl;
+
+	for (int k = 0; k < test_size; k++)
+	{
+		std::cout << "input[" << k << "] = " << input[k] << std::endl;
+	}
+
+
+	double start, end;
+	double duration, base_duration;
+
+	start = Timer();
+
+	float_sort4_qsort(input, correct_output, test_size);
+
+	std::cout << "correct output dump:" << std::endl;
+
+	for (int k = 0; k < test_size; k++)
+	{
+		std::cout << "out[" << k << "] = " << correct_output[k] << std::endl;
+	}
+
+	end = Timer();
+
+	base_duration = end - start;
+
+	std::cout << "stdlib quicksort: " << base_duration << std::endl;
+
+	start = Timer();
+
+	float_sort4_sse(input, output, test_size);
+
+	end = Timer();
+
+	duration = end - start;
+
+	std::cout << "SSE: " << duration << ", ratio = " << duration / base_duration <<  std::endl;
+
+	std::cout << "correctness check:" << std::endl;
+
+	for (int k = 0; k < test_size; k++)
+	{
+		if (output[k] != correct_output[k])
+		{
+			std::cout << "Mismatch: " << k << ": found = " << output[k] << ", expected = " << correct_output[k] << std::endl;
+		}
+		else
+		{
+			std::cout << "Correct: " << k << ": found = " << output[k] << ", expected = " << correct_output[k] << std::endl;
+
+		}
+	}
+
+	Ceng::AlignedFree(input);
+	Ceng::AlignedFree(output);
+	Ceng::AlignedFree(correct_output);
+
+	return 0;
+}
+
 
 typedef void (*uint8_to_normalized_float_callback)(const unsigned char* input, float* output, const int inputSize);
 

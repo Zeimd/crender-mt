@@ -23,3 +23,10 @@ void uint8_to_normalized_float_optimized_sse(const unsigned char* input16, float
 void uint8_to_normalized_float_sse_v3(const unsigned char* input16, float* output16, const int inputSize);
 
 void uint8_to_normalized_float_avx(const unsigned char* input16, float* output16, const int inputSize);
+
+//****************************************************************************
+// sorting algorithm
+
+void float_sort4_qsort(float* input4, float* output4, const int size);
+
+void float_sort4_sse(float* input4, float* output4, const int size);

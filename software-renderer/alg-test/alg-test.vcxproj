@@ -87,6 +87,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="sse-sort.cpp" />
     <ClCompile Include="uint8-float.cpp" />
   </ItemGroup>
   <ItemGroup>
