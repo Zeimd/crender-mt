@@ -605,9 +605,62 @@ void float_sort4_minmax_x87_cmov_v2(float* input4, const int size)
 	}
 }
 
+void float_sort4_minmax_sse_scalar(float* input4, const int size)
+{
+	for (int k = 0; k < size; k += 4)
+	{
+		__asm
+		{
+			mov esi, input4;
+			mov eax, k;
+			shl eax, 2;
+
+			vmovss xmm0, [esi + eax];
+			vmovss xmm1, [esi + eax + 4];
+			vmovss xmm2, [esi + eax + 8];
+			vmovss xmm3, [esi + eax + 12];
+
+			// min(a,b)
+			vminss xmm4, xmm0, xmm1;
+
+			// min(c,d)
+			vminss xmm5, xmm2, xmm3;
+
+			// max(a,b)
+			vmaxss xmm0, xmm0, xmm1;
+
+			// max(c,d)
+			vmaxss xmm1, xmm2, xmm3;
+
+			// out[0]
+			vminss xmm2, xmm4, xmm5;
+
+			// out[3]
+			vmaxss xmm3, xmm0, xmm1;
+
+			// maxOfMin
+			vmaxss xmm4, xmm4, xmm5;
+
+			// minOfMax
+			vminss xmm0, xmm0, xmm1;
+
+			// out[1]
+			vminss xmm1, xmm0, xmm4;
+
+			// out[2]
+			vmaxss xmm0, xmm0, xmm4;
+
+			vmovss[esi + eax], xmm2;
+			vmovss[esi + eax + 4], xmm1;
+			vmovss[esi + eax + 8], xmm0;
+			vmovss[esi + eax + 12], xmm3;
+
+		}
+	}
+}
 
 // Vectorized version of minmax sort
-void float_sort4_sse(float* input4, const int size)
+void float_sort4_minmax_sse(float* input4, const int size)
 {
 	for (int k = 0; k < size; k += 4)
 	{

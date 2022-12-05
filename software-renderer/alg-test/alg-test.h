@@ -43,4 +43,6 @@ void float_sort4_minmax_x87_cmov(float* input4, const int size);
 // Doesn't store immediates to RAM
 void float_sort4_minmax_x87_cmov_v2(float* input4, const int size);
 
-void float_sort4_sse(float* input4, const int size);
+void float_sort4_minmax_sse(float* input4, const int size);
+
+void float_sort4_minmax_sse_scalar(float* input4, const int size);

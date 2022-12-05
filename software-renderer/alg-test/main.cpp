@@ -108,7 +108,7 @@ int sort4_test(const char* name, sort4_callback callback, float* input, float* c
 
 int sort_test()
 {
-	const int test_size = 4 *  10000000;
+	const int test_size = 4 * 10000000;
 
 	int groups = test_size / 4;
 
@@ -182,10 +182,10 @@ int sort_test()
 	sort4_test("minmax sort STL", float_sort4_minmax_stl, input, correct_output, test_size, base_duration);
 	sort4_test("minmax sort STL int punning", float_sort4_minmax_stl_int_punning, input, correct_output, test_size, base_duration);
 	sort4_test("minmax sort x87 cmov", float_sort4_minmax_x87_cmov, input, correct_output, test_size, base_duration);
-	
 	sort4_test("minmax sort x87 cmov v2", float_sort4_minmax_x87_cmov_v2, input, correct_output, test_size, base_duration);
-	
-	sort4_test("SSE sort", float_sort4_sse, input, correct_output, test_size, base_duration);
+	sort4_test("minmax SSE scalar", float_sort4_minmax_sse_scalar, input, correct_output, test_size, base_duration);
+
+	sort4_test("minmax SSE vector", float_sort4_minmax_sse, input, correct_output, test_size, base_duration);
 
 
 	Ceng::AlignedFree(input);
