@@ -19,6 +19,27 @@ static int float_compare(const void* a, const void* b)
 	return 0;
 }
 
+void float_sort4_insertion_sort(float* input4, const int size)
+{
+	for (int group = 0; group < size; group += 4)
+	{
+		for (int i = 1; i < 4; i++)
+		{
+			float x = input4[group + i];
+
+			int j = i - 1;
+
+			while (j >= 0 && input4[group + j] > x)
+			{
+				input4[group + j + 1] = input4[group + j];
+				--j;
+			};
+
+			input4[group + j + 1] = x;
+		}
+	}
+}
+
 void float_sort4_selection_sort(float* input4, const int size)
 {
 	for (int group = 0; group < size; group += 4)

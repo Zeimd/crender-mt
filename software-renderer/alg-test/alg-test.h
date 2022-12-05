@@ -29,6 +29,8 @@ void uint8_to_normalized_float_avx(const unsigned char* input16, float* output16
 
 void float_sort4_selection_sort(float* input4, const int size);
 
+void float_sort4_insertion_sort(float* input4, const int size);
+
 void float_sort4_stdlib_qsort(float* input4, const int size);
 
 void float_sort4_sse(float* input4, const int size);
