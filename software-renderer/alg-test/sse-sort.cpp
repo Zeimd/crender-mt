@@ -78,7 +78,6 @@ void float_sort4_stdlib_qsort(float* input4, const int size)
 	}
 }
 
-
 void float_sort4_minmax_stl(float* input4, const int size)
 {
 	for (int group = 0; group < size; group += 4)
@@ -103,6 +102,32 @@ void float_sort4_minmax_stl(float* input4, const int size)
 	}
 }
 
+void float_sort4_minmax_stl_int_punning(float* input4, const int size)
+{
+	for (int group = 0; group < size; group += 4)
+	{
+		int *a = (int*)&input4[group];
+		int *b = (int*)&input4[group + 1];
+		int *c = (int*)&input4[group + 2];
+		int *d = (int*)&input4[group + 3];
+
+		int t0 = std::min(*a, *b);
+		int t1 = std::min(*c, *d);
+
+		int t2 = std::max(*a, *b);
+		int t3 = std::max(*c, *d);
+
+		int t4 = std::max(t0, t1);
+		int t5 = std::min(t2, t3);
+
+		*a = std::min(t0, t1);
+		*b = std::min(t4, t5);
+		*c = std::max(t4, t5);
+		*d = std::max(t2, t3);
+	}
+}
+
+// Vectorized version of minmax sort
 void float_sort4_sse(float* input4, const int size)
 {
 	for (int k = 0; k < size; k += 4)
