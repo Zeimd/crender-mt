@@ -19,6 +19,33 @@ static int float_compare(const void* a, const void* b)
 	return 0;
 }
 
+void float_sort4_selection_sort(float* input4, const int size)
+{
+	for (int group = 0; group < size; group += 4)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			int smallIndex = i;
+			float smallVal = input4[group + i];
+
+			for (int j = smallIndex+1; j < 4; j++)
+			{
+				float val = input4[group + j];
+
+				if (val < smallVal)
+				{
+					smallIndex = j;
+					smallVal = val;
+				}
+			}
+
+			float temp = input4[group + i];
+			input4[group + i] = smallVal;
+			input4[group + smallIndex] = temp;
+		}		
+	}
+}
+
 
 void float_sort4_stdlib_qsort(float* input4, const int size)
 {

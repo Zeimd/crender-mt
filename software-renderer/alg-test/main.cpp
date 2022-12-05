@@ -61,7 +61,9 @@ void round_trip_test(const unsigned char *input)
 
 int sort_test()
 {
-	const int test_size = 4 * 4;
+	const int test_size = 4 * 1000000;
+
+	int groups = test_size / 4;
 
 	float* input = (float*)Ceng::AlignedMalloc(test_size * sizeof(float), 64);
 
@@ -84,9 +86,9 @@ int sort_test()
 	input[2] = 2.0;
 	input[3] = 1.0;
 
+	/*
 	std::cout << "Input dump:" << std::endl;
 
-	int groups = test_size / 4;
 
 	for (int i = 0; i < groups; i++)
 	{
