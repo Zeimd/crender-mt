@@ -326,6 +326,285 @@ void float_sort4_minmax_x87_cmov(float* input4, const int size)
 	}
 }
 
+void float_sort4_minmax_x87_cmov_v2(float* input4, const int size)
+{
+	for (int group = 0; group < size; group += 4)
+	{
+		float* start = &input4[group];
+
+		__asm
+		{
+			mov esi, start;
+
+			//-------------------------------
+			// Calculate min(a,b) and max(a,b)
+
+			fld DWORD PTR[esi];
+			fld DWORD PTR[esi + 4];
+
+			// st(0) = b
+			// st(1) = a
+
+			fucomi st, st(1); // b > a ?
+
+			fld st(0);
+
+			// st(0) = b
+			// st(1) = b
+			// st(2) = a
+
+			fcmovnb st(0), st(2);
+
+			// st(0) = min(a,b)
+			// st(1) = b
+			// st(2) = a
+
+			fxch st(1);
+
+			// st(0) = b
+			// st(1) = min(a,b)
+			// st(2) = a
+
+			fcmovb st(0), st(2);
+
+			// st(0) = max(a,b)
+			// st(1) = min(a,b)
+			// st(2) = a
+
+			fstp st(2);
+
+			// st(0) = min(a,b)
+			// st(1) = max(a,b)
+
+			//-------------------------------
+			// Calculate min(c,d) and max(c,d)
+
+			fld DWORD PTR[esi + 8];
+			fld DWORD PTR[esi + 12];
+
+			// st(0) = d
+			// st(1) = c
+			// st(0) = min(a,b)
+			// st(1) = max(a,b)
+
+			fucomi st, st(1); // d > c ?
+
+			fld st(0);
+
+			// st(0) = d
+			// st(1) = d
+			// st(2) = c
+			// st(3) = min(a,b)
+			// st(4) = max(a,b)
+
+			fcmovnb st(0), st(2);
+
+			// st(0) = min(c,d)
+			// st(1) = d
+			// st(2) = c
+			// st(3) = min(a,b)
+			// st(4) = max(a,b)
+
+			fxch st(1);
+
+			// st(0) = d
+			// st(1) = min(c,d)
+			// st(2) = c
+			// st(3) = min(a,b)
+			// st(4) = max(a,b)
+
+			fcmovb st(0), st(2);
+
+			// st(0) = max(c,d)
+			// st(1) = min(c,d)
+			// st(2) = c
+			// st(3) = min(a,b)
+			// st(4) = max(a,b)
+
+			fstp st(2);
+
+			// st(0) = cdMin
+			// st(1) = cdMax 
+			// st(2) = abMin
+			// st(3) = abMax
+
+			//-------------------------------
+			// Calculate min(abMin,cdMin) and max(abMin,cdMin)
+
+			fucomi st, st(2); // cdMin > abMin ?
+
+			fld st(0);
+
+			// st(0) = cdMin
+			// st(1) = cdMin
+			// st(2) = cdMax 
+			// st(3) = abMin
+			// st(4) = abMax
+
+			fcmovnb st(0), st(3);
+
+			// st(0) = min(abMin,cdMin)
+			// st(1) = cdMin
+			// st(2) = cdMax 
+			// st(3) = abMin
+			// st(4) = abMax
+
+			fxch st(1);
+
+			// st(0) = cdMin
+			// st(1) = min(abMin,cdMin)
+			// st(2) = cdMax 
+			// st(3) = abMin
+			// st(4) = abMax
+
+			fcmovb st(0), st(3);
+
+			fstp st(3);
+
+			// st(0) = min(abMin,cdMin) = out[0]
+			// st(1) = cdMax 
+			// st(2) = max(abMin,cdMin) = maxOfMin
+			// st(3) = abMax
+
+			//-------------------------------
+			// Calculate min(abMax,cdMax) and max(abMax,cdMax)
+
+			fxch st(1);
+
+			// st(0) = cdMax 
+			// st(1) = min(abMin,cdMin) = out[0]
+			// st(2) = max(abMin,cdMin) = maxOfMin
+			// st(3) = abMax
+
+			fucomi st, st(3); // cdMax > abMax ?
+
+			fld st(0);
+
+			// st(0) = cdMax 
+			// st(1) = cdMax 
+			// st(2) = min(abMin,cdMin) = out[0]
+			// st(3) = max(abMin,cdMin) = maxOfMin
+			// st(4) = abMax
+
+			fcmovnb st(0), st(4);
+
+			// st(0) = min(abMax,cdMax) = minOfMax
+			// st(1) = cdMax 
+			// st(2) = min(abMin,cdMin) = out[0]
+			// st(3) = max(abMin,cdMin) = maxOfMin
+			// st(4) = abMax
+
+			fxch st(1);
+
+			// st(0) = cdMax 
+			// st(1) = min(abMax,cdMax) = minOfMax
+			// st(2) = min(abMin,cdMin) = out[0]
+			// st(3) = max(abMin,cdMin) = maxOfMin
+			// st(4) = abMax
+
+			fcmovb st(0), st(4);
+
+			// st(0) = max(abMax,cdMax) = out[3]
+			// st(1) = min(abMax,cdMax) = minOfMax
+			// st(2) = min(abMin,cdMin) = out[0]
+			// st(3) = max(abMin,cdMin) = maxOfMin
+			// st(4) = abMax
+
+			//-------------------------------
+			// Calculate min(abMax,cdMax) and max(abMax,cdMax)
+
+			fxch st(1);
+
+			// st(0) = minOfMax
+			// st(1) = out[3]
+			// st(2) = out[0]
+			// st(3) = maxOfMin
+			// st(4) = abMax
+
+			fucomi st, st(3); // minOfMax > maxOfMin ?
+
+			fld st(0);
+
+			// st(0) = minOfMax
+			// st(1) = minOfMax
+			// st(2) = out[3]
+			// st(3) = out[0]
+			// st(4) = maxOfMin
+			// st(5) = abMax
+
+			fcmovnb st(0), st(4);
+
+			// st(0) = out[1]
+			// st(1) = minOfMax
+			// st(2) = out[3]
+			// st(3) = out[0]
+			// st(4) = maxOfMin
+			// st(5) = abMax
+
+			fxch st(1);
+
+			// st(0) = minOfMax
+			// st(1) = out[1]
+			// st(2) = out[3]
+			// st(3) = out[0]
+			// st(4) = maxOfMin
+			// st(5) = abMax
+
+			fcmovb st(0), st(4);
+
+			// st(0) = out[2]
+			// st(1) = out[1]
+			// st(2) = out[3]
+			// st(3) = out[0]
+			// st(4) = maxOfMin
+			// st(5) = abMax
+
+			fxch st(3);
+
+			// st(0) = out[0]
+			// st(1) = out[1]
+			// st(2) = out[3]
+			// st(3) = out[2]
+			// st(4) = maxOfMin
+			// st(5) = abMax
+
+			fstp[esi];
+
+			// st(0) = out[1]
+			// st(1) = out[3]
+			// st(2) = out[2]
+			// st(3) = maxOfMin
+			// st(4) = abMax
+
+			fstp[esi+4];
+
+			// st(0) = out[3]
+			// st(1) = out[2]
+			// st(2) = maxOfMin
+			// st(3) = abMax
+
+			fxch st(1);
+
+			// st(0) = out[2]
+			// st(1) = out[3]
+			// st(2) = maxOfMin
+			// st(3) = abMax
+
+			fstp[esi + 8];
+
+			// st(0) = out[3]
+			// st(1) = maxOfMin
+			// st(2) = abMax
+
+			fstp[esi + 12];
+			fstp st(0);
+			fstp st(0);
+
+
+		}
+	}
+}
+
 
 // Vectorized version of minmax sort
 void float_sort4_sse(float* input4, const int size)
