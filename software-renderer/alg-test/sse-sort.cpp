@@ -662,6 +662,8 @@ void float_sort4_minmax_sse_scalar(float* input4, const int size)
 // Vectorized version of minmax sort
 void float_sort4_minmax_sse(float* input4, const int size)
 {
+	// 19 instructions
+
 	for (int k = 0; k < size; k += 4)
 	{
 		__asm
@@ -674,32 +676,55 @@ void float_sort4_minmax_sse(float* input4, const int size)
 
 			vmovdqa xmm1, xmm0;
 
+			// xmm0 = [d, c, b, a]
+
 			vpsrldq xmm1, xmm1, 8;
+
+			// xmm1 = [0, 0, d, c]
 
 			vmovaps xmm2, xmm0;
 			vminps xmm0, xmm0, xmm1;
 			vmaxps xmm2, xmm2, xmm1;
 
+			// xmm0 = [x, x, bdMin, acMin]
+			// xmm1 = [x, x, bdMax, acMax]
+
 			vmovaps xmm1, xmm0;
 			vunpcklps xmm1, xmm1, xmm2;
-			
+
+			// xmm1 = [bdMax, bdMin, acMax, acMin]
+
 			vpshufd xmm3, xmm1, 01001110b;
+
+			// xmm3 = [acMax, acMin, bdMax, bdMin]
 
 			vmovaps xmm0, xmm1;
 			vminps xmm0, xmm0, xmm3;
 
+			// xmm0 = [minOfMax, out[0], minOfMax, out[0]]
+
 			vmaxps xmm3, xmm3, xmm1;
-			
+
+			// xmm3 = [out[3], maxOfMin, out[3], maxOfMin]
+
 			vmovaps xmm2, xmm0;
 
 			vpsrldq xmm2, xmm2, 4;
+
+			// xmm2 = [0, minOfMax, out[0], minOfMax]
 
 			vmovaps xmm1, xmm2;
 			
 			vminps xmm1, xmm1, xmm3;
 			vmaxps xmm2, xmm2, xmm3;
 
+			// xmm1 = [x, out[1], out[0], out[1] ]
+
+			// xmm2 = [x, out[2], out[3], out[2] ]
+
 			vshufps xmm1, xmm1, xmm2, 01000001b;
+
+			// xmm1 = [out[3], out[2], out[1], out[0] ]
 
 			vmovaps[esi + eax], xmm1;			
 		}
