@@ -730,3 +730,94 @@ void float_sort4_minmax_sse(float* input4, const int size)
 		}
 	}
 }
+
+__declspec(align(16)) static const uint32_t flipMask1[4] = {0, 0, uint32_t(1) << 31, uint32_t(1) << 31};
+__declspec(align(16)) static const uint32_t flipMask2[4] = {0, uint32_t(1) << 31, 0, uint32_t(1) << 31};
+__declspec(align(16)) static const uint32_t flipMask3[4] = {0, 0, uint32_t(1) << 31, 0 };
+
+
+// Alternate version
+void float_sort4_minmax_sse_v2(float* input4, const int size)
+{
+	// 20 instructions
+	// 3 constants loaded from memory
+
+	for (int k = 0; k < size; k += 4)
+	{
+		__asm
+		{
+			mov esi, input4;
+			mov eax, k;
+			shl eax, 2;
+
+			vmovdqa xmm0, [esi + eax];
+			
+			// xmm0 = [d, c, b, a]
+
+			vpshufd xmm1, xmm0, 01001110b;
+
+			// xmm1 = [b, a, d, c]
+
+			vmovdqa xmm2, [flipMask1];
+
+			vxorps xmm0, xmm0, xmm2;
+			vxorps xmm1, xmm1, xmm2;
+
+			// xmm0 = [-d, -c, b, a]
+			// xmm1 = [-b, -a, d, c]
+
+			vminps xmm0, xmm0, xmm1;
+	
+			// xmm0 = [min(-d,-b), min(-c,-a), min(b,d), min(a,c) ]
+
+			vxorps xmm0, xmm0, xmm2;
+
+			// xmm0 = [max(b,d), max(a,c), min(b,d), min(a,c) ]
+
+			pshufd xmm1, xmm0, 10110001b;
+
+			// xmm1 = [max(a,c), max(b,d), min(a,c), min(b,d) ]
+
+			vmovaps xmm2, [flipMask2];
+
+			vxorps xmm0, xmm0, xmm2;
+			vxorps xmm1, xmm1, xmm2;
+
+			// xmm0 = [-bdMax, acMax, -bdMin, acMin ]
+			
+			// xmm1 = [-acMax, bdMax, -acMin, bdMin ]
+
+			vminps xmm0, xmm0, xmm1;
+
+			// xmm0 = [min(-acMax,-bdMax), min(acMax, bdMax), min(-acMin, -bdMin), min(acMin, bdMin)]
+
+			vxorps xmm0, xmm0, xmm2;
+
+			// xmm0 = [max(acMax,bdMax), min(acMax, bdMax), max(acMin, bdMin), min(acMin, bdMin)]
+			//      = [out[3], minOfMax, maxOfMin, out[0] ]
+
+			vpshufd xmm1, xmm0, 11011000b;
+	
+			// xmm1 = [out[3], maxOfMin, minOfMax, out[0] ]
+
+			vmovaps xmm2, [flipMask3];
+
+			vxorps xmm0, xmm0, xmm2;
+			vxorps xmm1, xmm1, xmm2;
+
+			// xmm0 = [out[3], -minOfMax, maxOfMin, out[0] ]
+
+			// xmm1 = [out[3], -maxOfMin, minOfMax, out[0] ]
+
+			vminps xmm0, xmm0, xmm1;
+
+			// xmm1 = [out[3], min(-minOfMax,-maxOfMin), min(minOfMax,maxOfMin), out[0] ]
+
+			vxorps xmm0, xmm0, xmm2;
+			
+
+			vmovaps[esi + eax], xmm0;
+			
+		}
+	}
+}
